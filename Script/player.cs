@@ -46,11 +46,22 @@ public class player : KinematicBody {
 
 			Velocity.x = Mathf.Lerp(Velocity.x, Direction.x * ActualSpeed, inertia);
 			Velocity.z = Mathf.Lerp(Velocity.z, Direction.z * ActualSpeed, inertia);
+			MovementStatus(ActualSpeed == RunningSpeed ? 1f : 0f, delta);
 		} else {
 			Velocity.x = Mathf.Lerp(Velocity.x, 0f, inertia);
 			Velocity.z = Mathf.Lerp(Velocity.z, 0f, inertia);
+			MovementStatus(-1f, delta);
 		}
 
+		GD.Print(GetNode<AnimationTree>("AnimationTree").Get("parameters/iwr_blend/blend_amount"));
 		MoveAndSlide(Velocity, Vector3.Up);
 	}
+
+	private void Jump() => Velocity.y = JumpSpeed;
+	private void SufferGravity(float delta) => Velocity.y -= Gravity * delta;
+	private void MovementStatus(float value, float delta) => GetNode<AnimationTree>("AnimationTree").Set(
+		"parameters/iwr_blend/blend_amount", Mathf.Lerp(
+			(float)GetNode<AnimationTree>("AnimationTree").Get("parameters/iwr_blend/blend_amount"), value, delta * 3
+		)
+	);
 }
