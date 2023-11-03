@@ -15,6 +15,7 @@ public class player : KinematicBody {
 	private int ActualSpeed;
 	private float Gravity;
 	private float JumpSpeed;
+	private float AngularAcceleration = 7;
 
 	public override void _Ready() {
 		Gravity = 2 * JumpHeight / (TimeToJumpPeak*TimeToJumpPeak); //m/s^2
