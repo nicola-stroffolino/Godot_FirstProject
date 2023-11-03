@@ -1,7 +1,3 @@
-// using Godot;
-// using System;
-// using System.Drawing.Drawing2D;
-
 // public class player : KinematicBody {
 // 	[Export]
 // 	public int WalkingSpeed { get; set; } = 5; //km/h
@@ -120,7 +116,6 @@
 // }
 using Godot;
 using System;
-using System.Drawing.Drawing2D;
 
 public class player : KinematicBody {
 	[Export]
