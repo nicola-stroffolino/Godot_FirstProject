@@ -30,6 +30,7 @@ light_energy = 0.266
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+TimeToJumpPeak = 5.0
 
 [node name="Ground" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )

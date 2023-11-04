@@ -125,7 +125,7 @@ public class player : KinematicBody {
 	[Export]
 	public float TimeToJumpPeak { get; set; } = .3f; //second
 	[Export]
-	public int JumpHeight { get; set; } = 5; //meter
+	public int JumpHeight { get; set; } = 10; //meter
 
 	private int ActualSpeed;
 	private float Gravity;
@@ -133,6 +133,10 @@ public class player : KinematicBody {
 	private float AngularAcceleration = 7;
 
 	public override void _Ready() {
+
+	}
+
+	public override void _Process(float delta) {
 		Gravity = 2 * JumpHeight / (TimeToJumpPeak*TimeToJumpPeak); //m/s^2
 		JumpSpeed = Gravity * TimeToJumpPeak; //m/s
 	}
@@ -141,8 +145,12 @@ public class player : KinematicBody {
 	private Vector3 Velocity = Vector3.Zero;
 	private Vector3 StrafeDirection = Vector3.Zero;
 	private Vector3 Strafe = Vector3.Zero;
+	private bool IsInJumpingMotion = false;
+	private bool Falling = false;
+	private float DeltaTot = 0f;
 	public override void _PhysicsProcess(float delta) {
 		float inertia = delta * 3;
+
 		if (Input.IsActionPressed("move_right") || Input.IsActionPressed("move_left") || Input.IsActionPressed("move_back") || Input.IsActionPressed("move_forward")) {
 			var HCamRotation = GetNode<Spatial>("CameraRoot/Horizontal").GlobalTransform.basis.GetEuler().y;
 			Direction = new Vector3 {
@@ -174,11 +182,37 @@ public class player : KinematicBody {
 
 		if (IsOnFloor() && Input.IsActionPressed("jump")) {
 			Velocity.y = JumpSpeed;
+			IsInJumpingMotion = true;
 		} else if (!IsOnFloor()) {
 			Velocity.y -= Gravity * delta;
 		} else {
 			Velocity.y = 0;
+			IsInJumpingMotion = false;
+			Falling = false;
+			DeltaTot = 0;
 		}
+
+		if (IsInJumpingMotion && !Falling) {
+			DeltaTot += delta;
+			if (DeltaTot >= TimeToJumpPeak && !Falling) {
+				IsInJumpingMotion = false;
+				Falling = true;
+			}
+		}
+		if (Falling && !IsInJumpingMotion) {
+			DeltaTot -= delta;
+			if (DeltaTot <= 0) {
+				Falling = false;
+				DeltaTot = 0;
+			}
+		}
+
+		if (IsInJumpingMotion || Falling) {
+			GD.Print(DeltaTot);
+		}
+		GetNode<AnimationTree>("AnimationTree").Set(
+			"parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak
+		);
 
 		Strafe = Strafe.LinearInterpolate(StrafeDirection, inertia);
 
