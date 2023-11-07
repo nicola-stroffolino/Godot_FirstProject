@@ -22,26 +22,26 @@
 
 // 	private Vector3 StrafeDir = Vector3.Zero;
 // 	private Vector3 Strafe = Vector3.Zero;
-// 	private bool IsInJumpingMotion = false;
+// 	private bool Ascending = false;
 // 	private float TimeToJumpCopy = 0f;
 // 	private bool IsJumpActionPerformed = false;
 // 	public override void _PhysicsProcess(float delta) {
 // 		if (!IsOnFloor()) SufferGravity(delta);
 // 		else if (Input.IsActionPressed("jump")) {
 // 			Jump();
-// 			IsInJumpingMotion = IsJumpActionPerformed = true;
+// 			Ascending = IsJumpActionPerformed = true;
 // 			TimeToJumpCopy = TimeToJumpPeak;
 // 		} else if (IsOnFloor()) Velocity.y = 0;
 
 
 // 		if (IsJumpActionPerformed){
 // 			TimeToJumpCopy -= delta;
-// 			if (IsInJumpingMotion) {
+// 			if (Ascending) {
 // 				GetNode<AnimationTree>("AnimationTree").Set(
 // 					"parameters/jump_blend/blend_amount", (TimeToJumpPeak - TimeToJumpCopy) / TimeToJumpPeak
 // 				);
 // 				if ((float)GetNode<AnimationTree>("AnimationTree").Get("parameters/jump_blend/blend_amount") + delta >= 1f) {
-// 					IsInJumpingMotion = false;
+// 					Ascending = false;
 // 					TimeToJumpCopy = (float)Math.Sqrt(2 * JumpHeight / Gravity);
 // 					// GD.Print("Velocity: " + Velocity.y);
 // 					// GD.Print("Jump Speed: " + JumpSpeed);
@@ -117,7 +117,7 @@
 using Godot;
 using System;
 
-public class player : KinematicBody {
+public class Player : KinematicBody {
 	[Export]
 	public int WalkingSpeed { get; set; } = 5; //km/h
 	[Export]
@@ -131,9 +131,10 @@ public class player : KinematicBody {
 	private float Gravity;
 	private float JumpSpeed;
 	private float AngularAcceleration = 7;
+	private AnimationTree AnimTree;
 
 	public override void _Ready() {
-
+		AnimTree = GetNode<AnimationTree>("AnimationTree");
 	}
 
 	public override void _Process(float delta) {
@@ -145,7 +146,7 @@ public class player : KinematicBody {
 	private Vector3 Velocity = Vector3.Zero;
 	private Vector3 StrafeDirection = Vector3.Zero;
 	private Vector3 Strafe = Vector3.Zero;
-	private bool IsInJumpingMotion = false;
+	private bool Ascending = false;
 	private bool Falling = false;
 	private float DeltaTot = 0f;
 	public override void _PhysicsProcess(float delta) {
@@ -180,51 +181,40 @@ public class player : KinematicBody {
 			MovementStatus(-1f, delta);
 		}
 
-		if (IsOnFloor() && Input.IsActionPressed("jump")) {
-			Velocity.y = JumpSpeed;
-			IsInJumpingMotion = true;
-		} else if (!IsOnFloor()) {
-			Velocity.y -= Gravity * delta;
-		} else {
-			Velocity.y = 0;
-			IsInJumpingMotion = false;
-			Falling = false;
+		if (IsOnFloor()) {
 			DeltaTot = 0;
-		}
+			if (Input.IsActionPressed("jump")) {
+				Velocity.y = JumpSpeed;
+				Ascending = true;
+			}
+		} else {
+			Velocity.y -= Gravity * delta;
 
-		if (IsInJumpingMotion && !Falling) {
-			DeltaTot += delta;
-			if (DeltaTot >= TimeToJumpPeak && !Falling) {
-				IsInJumpingMotion = false;
-				Falling = true;
+			if (Ascending) {
+				DeltaTot += delta;
+				if (DeltaTot >= TimeToJumpPeak) {
+					Ascending = false;
+				}
+			} else {
+				DeltaTot -= delta;
+				if (DeltaTot <= 0) {
+					DeltaTot = 0;
+				}
 			}
 		}
-		if (Falling && !IsInJumpingMotion) {
-			DeltaTot -= delta;
-			if (DeltaTot <= 0) {
-				Falling = false;
-				DeltaTot = 0;
-			}
-		}
 
-		if (IsInJumpingMotion || Falling) {
-			GD.Print(DeltaTot);
-		}
-		GetNode<AnimationTree>("AnimationTree").Set(
-			"parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak
-		);
+		AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
 
 		Strafe = Strafe.LinearInterpolate(StrafeDirection, inertia);
-
-		GetNode<AnimationTree>("AnimationTree").Set("parameters/walk_blend/blend_position", new Vector2(-Strafe.x, -Strafe.z));
-		GetNode<AnimationTree>("AnimationTree").Set("parameters/run_blend/blend_position", new Vector2(-Strafe.x, -Strafe.z));
+		AnimTree.Set("parameters/walk_blend/blend_position", new Vector2(-Strafe.x, -Strafe.z));
+		AnimTree.Set("parameters/run_blend/blend_position", new Vector2(-Strafe.x, -Strafe.z));
 
 		MoveAndSlide(Velocity, Vector3.Up);
 	}
 
-	private void MovementStatus(float value, float delta) => GetNode<AnimationTree>("AnimationTree").Set(
+	private void MovementStatus(float value, float delta) => AnimTree.Set(
 		"parameters/iwr_blend/blend_amount", Mathf.Lerp(
-			(float)GetNode<AnimationTree>("AnimationTree").Get("parameters/iwr_blend/blend_amount"), value, delta * 3
+			(float)AnimTree.Get("parameters/iwr_blend/blend_amount"), value, delta * 3
 		)
 	);
 }
