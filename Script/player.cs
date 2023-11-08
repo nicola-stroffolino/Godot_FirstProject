@@ -9,7 +9,7 @@ public class Player : KinematicBody {
 	[Export]
 	public float TimeToJumpPeak { get; set; } = .3f; //second
 	[Export]
-	public int JumpHeight { get; set; } = 10; //meter
+	public int JumpHeight { get; set; } = 2; //meter
 
 	private int ActualSpeed;
 	private float Gravity;
@@ -85,7 +85,7 @@ public class Player : KinematicBody {
 				}
 			}
 		}
-
+		
 		AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
 
 		Strafe = Strafe.LinearInterpolate(StrafeDirection, inertia);
