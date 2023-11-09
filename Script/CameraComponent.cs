@@ -1,8 +1,8 @@
 using Godot;
 using System;
 
-public partial class CameraComponent : Node3D {
-	[Export]
+public partial class CameraComponent : Node {
+	[Export]	
 	public float HSensitivity { get; set; } = .1f;
 	[Export]
 	public float VSensitivity { get; set; } = .1f;
