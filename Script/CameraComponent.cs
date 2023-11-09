@@ -13,7 +13,6 @@ public partial class CameraComponent : Node {
 	
 	public override void _Ready() {
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-		//GetNode<Camera3D>("Horizontal/Vertical/Camera3D").AddException(GetParent());
 	}
 
 	public override void _Input(InputEvent ev) {

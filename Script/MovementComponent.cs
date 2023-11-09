@@ -13,6 +13,9 @@ public partial class MovementComponent : Node {
 	[Export]
 	public int JumpHeight { get; set; } = 2; //meter
 
+	[Signal]
+	public delegate void MovementStatusChangedEventHandler(float value);
+
 	private int ActualSpeed;
 	private float Gravity;
 	private float JumpSpeed;
@@ -59,11 +62,15 @@ public partial class MovementComponent : Node {
 
 			Velocity.X = Mathf.Lerp(Velocity.X, Direction.X * ActualSpeed, (float)inertia);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, Direction.Z * ActualSpeed, (float)inertia);
+
+			EmitSignal(SignalName.MovementStatusChanged, ActualSpeed == RunningSpeed ? 1f : 0f);
 			MovementStatus(ActualSpeed == RunningSpeed ? 1f : 0f, delta);
 		} else {
 			Velocity.X = Mathf.Lerp(Velocity.X, 0f, (float)inertia);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, 0f, (float)inertia);
 			StrafeDirection = Vector3.Zero;
+
+			EmitSignal(SignalName.MovementStatusChanged, -1f);
 			MovementStatus(-1f, delta);
 		}
 
