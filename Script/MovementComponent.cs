@@ -3,7 +3,7 @@ using Godot;
 
 public partial class MovementComponent : Node {
 	[Export]
-	public CharacterBody3D Actor;
+	private CharacterBody3D Actor;
 	[Export]
 	public int WalkingSpeed { get; set; } = 5; //km/h
 	[Export]
@@ -14,7 +14,9 @@ public partial class MovementComponent : Node {
 	public int JumpHeight { get; set; } = 2; //meter
 
 	[Signal]
-	public delegate void MovementStatusChangedEventHandler(float value);
+	public delegate void MotionStateEventHandler(double value, double delta);
+	[Signal]
+	public delegate void JumpStateEventHandler(double value, double delta);
 
 	private int ActualSpeed;
 	private float Gravity;
@@ -63,15 +65,13 @@ public partial class MovementComponent : Node {
 			Velocity.X = Mathf.Lerp(Velocity.X, Direction.X * ActualSpeed, (float)inertia);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, Direction.Z * ActualSpeed, (float)inertia);
 
-			EmitSignal(SignalName.MovementStatusChanged, ActualSpeed == RunningSpeed ? 1f : 0f);
-			MovementStatus(ActualSpeed == RunningSpeed ? 1f : 0f, delta);
+			EmitSignal(SignalName.MotionState, ActualSpeed == RunningSpeed ? 1 : 0, delta);
 		} else {
 			Velocity.X = Mathf.Lerp(Velocity.X, 0f, (float)inertia);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, 0f, (float)inertia);
 			StrafeDirection = Vector3.Zero;
 
-			EmitSignal(SignalName.MovementStatusChanged, -1f);
-			MovementStatus(-1f, delta);
+			EmitSignal(SignalName.MotionState, -1, delta);
 		}
 
 		if (Actor.IsOnFloor()) {
@@ -104,12 +104,5 @@ public partial class MovementComponent : Node {
 
 		Actor.Velocity = Velocity;
 		Actor.MoveAndSlide();
-	}
-
-	private void MovementStatus(float value, double delta) => AnimTree.Set(
-		"parameters/iwr_blend/blend_amount", Mathf.Lerp(
-			(float)AnimTree.Get("parameters/iwr_blend/blend_amount"), value, delta * 3
-		)
-	);
-	
+	}	
 }
