@@ -11,7 +11,7 @@ public partial class AnimationComponent : Node {
 	}
 
 	private void MotionStatusChanged(double value, double delta) {
-		GD.Print("Movement Status has changed: " + value);
+		//GD.Print("Movement Status has changed: " + value);
 
 		TargetAnimationTree.Set("parameters/iwr_blend/blend_amount", Mathf.Lerp(
 			(float)TargetAnimationTree.Get("parameters/iwr_blend/blend_amount"), value, delta * 3

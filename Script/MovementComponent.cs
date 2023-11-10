@@ -76,8 +76,13 @@ public partial class MovementComponent : Node {
 
 		if (Actor.IsOnFloor()) {
 			DeltaTot = 0;
+			AnimTree.Set("parameters/jump_transition/transition_request", "landing");
+			AnimTree.Set("parameters/jump_blend/blend_amount", 0);
+			//AnimTree.Set("parameters/jump_transition/transition_request", "");
 			if (Input.IsActionPressed("jump")) {
 				Velocity.Y = JumpSpeed;
+				AnimTree.Set("parameters/jump_blend/blend_amount", 1);
+				AnimTree.Set("parameters/jump_transition/transition_request", "pre_jump");
 				Ascending = true;
 			}
 		} else {
@@ -90,13 +95,14 @@ public partial class MovementComponent : Node {
 				}
 			} else {
 				DeltaTot -= delta;
+				AnimTree.Set("parameters/jump_transition/transition_request", "falling_idle");
 				if (DeltaTot <= 0) {
 					DeltaTot = 0;
 				}
 			}
 		}
 		
-		AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
+		//AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
 
 		Strafe = Strafe.Lerp(StrafeDirection, (float)inertia);
 		AnimTree.Set("parameters/walk_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
