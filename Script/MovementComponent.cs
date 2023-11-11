@@ -108,41 +108,25 @@ public partial class MovementComponent : Node {
 			
 			if (Ascending) {
 				DeltaTot += delta;
-				//AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
 				if (DeltaTot >= TimeToJumpPeak) {
 					Ascending = false;
 				}
 			} else {
 				DeltaTot -= delta;
-
 				if (DeltaTot <= 0) {
 					DeltaTot = 0;
 				}
 			}
-			if (Actor.IsOnFloor()) GD.Print("Just Landed");
 		}
 		
+		//AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
 		
-
 		Strafe = Strafe.Lerp(StrafeDirection, (float)inertia);
 		AnimTree.Set("parameters/StateMachine/Walking/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
 		AnimTree.Set("parameters/StateMachine/Running/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
 		
 		Actor.Velocity = Velocity;
 		Actor.MoveAndSlide();
-	}	
-	
-	private void OnAnimationFinished(StringName anim_name) {
-		//GD.Print(anim_name);
-		switch (anim_name) {
-			case "falling_to_land":
-			case "falling_to_roll":
-				//GD.Print("Landing Animation has finished.");
-				AnimTree.Set("parameters/jump_blend/blend_amount", 0);
-				break;
-			default:
-				break;
-		}
 	}
 }
 
