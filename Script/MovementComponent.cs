@@ -77,7 +77,7 @@ public partial class MovementComponent : Node {
 		if (Actor.IsOnFloor()) {
 			DeltaTot = 0;
 			AnimTree.Set("parameters/jump_transition/transition_request", "landing");
-			AnimTree.Set("parameters/jump_blend/blend_amount", 0);
+			//AnimTree.Set("parameters/jump_blend/blend_amount", 0);
 			//AnimTree.Set("parameters/jump_transition/transition_request", "");
 			if (Input.IsActionPressed("jump")) {
 				Velocity.Y = JumpSpeed;
@@ -111,4 +111,18 @@ public partial class MovementComponent : Node {
 		Actor.Velocity = Velocity;
 		Actor.MoveAndSlide();
 	}	
+	
+	private void OnAnimationFinished(StringName anim_name) {
+		switch (anim_name) {
+			case "fall_to_landing":
+			case "falling_to_roll":
+				GD.Print("Landing Animation has finished.");
+				AnimTree.Set("parameters/jump_blend/blend_amount", 0);
+				break;
+			default:
+				break;
+		}
+	}
 }
+
+
