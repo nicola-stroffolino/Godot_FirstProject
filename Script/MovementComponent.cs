@@ -38,6 +38,7 @@ public partial class MovementComponent : Node {
 	private Vector3 StrafeDirection = Vector3.Zero;
 	private Vector3 Strafe = Vector3.Zero;
 	private bool Ascending = false;
+	private bool Airborne = false;
 	private double DeltaTot = 0f;
 
 	public override void _PhysicsProcess(double delta) {
@@ -64,14 +65,25 @@ public partial class MovementComponent : Node {
 
 			Velocity.X = Mathf.Lerp(Velocity.X, Direction.X * ActualSpeed, (float)inertia);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, Direction.Z * ActualSpeed, (float)inertia);
-
-			EmitSignal(SignalName.MotionState, ActualSpeed == RunningSpeed ? 1 : 0, delta);
+			
+			if (ActualSpeed == RunningSpeed) {
+				AnimTree.Set("parameters/StateMachine/conditions/idle", false);
+				AnimTree.Set("parameters/StateMachine/conditions/walking", false);
+				AnimTree.Set("parameters/StateMachine/conditions/running", true);
+			} else {
+				AnimTree.Set("parameters/StateMachine/conditions/idle", false);
+				AnimTree.Set("parameters/StateMachine/conditions/walking", true);
+				AnimTree.Set("parameters/StateMachine/conditions/running", false);
+			}
+			//EmitSignal(SignalName.MotionState, ActualSpeed == RunningSpeed ? 1 : 0, delta);
 		} else {
 			Velocity.X = Mathf.Lerp(Velocity.X, 0f, (float)inertia);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, 0f, (float)inertia);
 			StrafeDirection = Vector3.Zero;
-
-			EmitSignal(SignalName.MotionState, -1, delta);
+			
+			AnimTree.Set("parameters/StateMachine/conditions/idle", true);
+			AnimTree.Set("parameters/StateMachine/conditions/walking", false);
+			AnimTree.Set("parameters/StateMachine/conditions/running", false);
 		}
 
 		if (Actor.IsOnFloor()) {
@@ -79,44 +91,53 @@ public partial class MovementComponent : Node {
 			
 			if (Input.IsActionPressed("jump")) {
 				Velocity.Y = JumpSpeed;
-				AnimTree.Set("parameters/jump_transition/transition_request", "airborne_idle");
 				Ascending = true;
+			}
+			
+			if (Airborne) {
+				Airborne = false;
+				AnimTree.Set("parameters/StateMachine/conditions/landed", true);
+				AnimTree.Set("parameters/StateMachine/conditions/falling", false);
 			} else {
-				AnimTree.Set("parameters/jump_transition/transition_request", "landing");
+				AnimTree.Set("parameters/StateMachine/conditions/landed", false);
 			}
 		} else {
 			Velocity.Y -= (float)(Gravity * delta);
+			Airborne = true;
+			AnimTree.Set("parameters/StateMachine/conditions/falling", true);
 			
 			if (Ascending) {
 				DeltaTot += delta;
-				AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
+				//AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
 				if (DeltaTot >= TimeToJumpPeak) {
 					Ascending = false;
 				}
 			} else {
 				DeltaTot -= delta;
+
 				if (DeltaTot <= 0) {
 					DeltaTot = 0;
 				}
 			}
+			if (Actor.IsOnFloor()) GD.Print("Just Landed");
 		}
 		
 		
 
 		Strafe = Strafe.Lerp(StrafeDirection, (float)inertia);
-		AnimTree.Set("parameters/walk_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
-		AnimTree.Set("parameters/run_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
-
+		AnimTree.Set("parameters/StateMachine/Walking/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
+		AnimTree.Set("parameters/StateMachine/Running/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
+		
 		Actor.Velocity = Velocity;
 		Actor.MoveAndSlide();
 	}	
 	
 	private void OnAnimationFinished(StringName anim_name) {
-		GD.Print(anim_name);
+		//GD.Print(anim_name);
 		switch (anim_name) {
 			case "falling_to_land":
 			case "falling_to_roll":
-				GD.Print("Landing Animation has finished.");
+				//GD.Print("Landing Animation has finished.");
 				AnimTree.Set("parameters/jump_blend/blend_amount", 0);
 				break;
 			default:
