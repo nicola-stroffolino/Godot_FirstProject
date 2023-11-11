@@ -76,33 +76,32 @@ public partial class MovementComponent : Node {
 
 		if (Actor.IsOnFloor()) {
 			DeltaTot = 0;
-			AnimTree.Set("parameters/jump_transition/transition_request", "landing");
-			//AnimTree.Set("parameters/jump_blend/blend_amount", 0);
-			//AnimTree.Set("parameters/jump_transition/transition_request", "");
+			
 			if (Input.IsActionPressed("jump")) {
 				Velocity.Y = JumpSpeed;
-				AnimTree.Set("parameters/jump_blend/blend_amount", 1);
-				AnimTree.Set("parameters/jump_transition/transition_request", "pre_jump");
+				AnimTree.Set("parameters/jump_transition/transition_request", "airborne_idle");
 				Ascending = true;
+			} else {
+				AnimTree.Set("parameters/jump_transition/transition_request", "landing");
 			}
 		} else {
 			Velocity.Y -= (float)(Gravity * delta);
-
+			
 			if (Ascending) {
 				DeltaTot += delta;
+				AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
 				if (DeltaTot >= TimeToJumpPeak) {
 					Ascending = false;
 				}
 			} else {
 				DeltaTot -= delta;
-				AnimTree.Set("parameters/jump_transition/transition_request", "falling_idle");
 				if (DeltaTot <= 0) {
 					DeltaTot = 0;
 				}
 			}
 		}
 		
-		//AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
+		
 
 		Strafe = Strafe.Lerp(StrafeDirection, (float)inertia);
 		AnimTree.Set("parameters/walk_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
@@ -113,8 +112,9 @@ public partial class MovementComponent : Node {
 	}	
 	
 	private void OnAnimationFinished(StringName anim_name) {
+		GD.Print(anim_name);
 		switch (anim_name) {
-			case "fall_to_landing":
+			case "falling_to_land":
 			case "falling_to_roll":
 				GD.Print("Landing Animation has finished.");
 				AnimTree.Set("parameters/jump_blend/blend_amount", 0);
