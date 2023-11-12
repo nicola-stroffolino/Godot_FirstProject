@@ -5,11 +5,11 @@ public partial class MovementComponent : Node {
 	[Export]
 	private CharacterBody3D Actor;
 	[Export]
-	public int WalkingSpeed { get; set; } = 5; //km/h
+	public int WalkingSpeed { get; set; } = 2; //km/h
 	[Export]
-	public int RunningSpeed { get; set; } = 15; //km/h
+	public int RunningSpeed { get; set; } = 6; //km/h
 	[Export]
-	public float TimeToJumpPeak { get; set; } = .3f; //second
+	public float TimeToJumpPeak { get; set; } = .4f; //second
 	[Export]
 	public int JumpHeight { get; set; } = 2; //meter
 
@@ -40,9 +40,10 @@ public partial class MovementComponent : Node {
 	private bool Ascending = false;
 	private bool Airborne = false;
 	private double DeltaTot = 0f;
+	private string MovementStatus = "idle";
 
 	public override void _PhysicsProcess(double delta) {
-		double inertia = delta * 3;
+		double inertia = delta * 5;
 
 		if (Input.IsActionPressed("move_right") || Input.IsActionPressed("move_left") || Input.IsActionPressed("move_back") || Input.IsActionPressed("move_forward")) {
 			var HCamRotation = GetNode<Node3D>("../CameraComponent/Horizontal").GlobalTransform.Basis.GetEuler().Y;
@@ -75,7 +76,7 @@ public partial class MovementComponent : Node {
 				AnimTree.Set("parameters/StateMachine/conditions/walking", true);
 				AnimTree.Set("parameters/StateMachine/conditions/running", false);
 			}
-			//EmitSignal(SignalName.MotionState, ActualSpeed == RunningSpeed ? 1 : 0, delta);
+			EmitSignal(SignalName.MotionState, ActualSpeed == RunningSpeed ? 1 : 0, delta);
 		} else {
 			Velocity.X = Mathf.Lerp(Velocity.X, 0f, (float)inertia);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, 0f, (float)inertia);
@@ -84,6 +85,8 @@ public partial class MovementComponent : Node {
 			AnimTree.Set("parameters/StateMachine/conditions/idle", true);
 			AnimTree.Set("parameters/StateMachine/conditions/walking", false);
 			AnimTree.Set("parameters/StateMachine/conditions/running", false);
+
+			EmitSignal(SignalName.MotionState, -1, delta);
 		}
 
 		if (Actor.IsOnFloor()) {
@@ -93,18 +96,17 @@ public partial class MovementComponent : Node {
 				Velocity.Y = JumpSpeed;
 				Ascending = true;
 			}
-			
 			if (Airborne) {
 				Airborne = false;
-				AnimTree.Set("parameters/StateMachine/conditions/landed", true);
-				AnimTree.Set("parameters/StateMachine/conditions/falling", false);
-			} else {
-				AnimTree.Set("parameters/StateMachine/conditions/landed", false);
+				AnimTree.Set("parameters/StateMachine/conditions/airborne", false);
 			}
 		} else {
 			Velocity.Y -= (float)(Gravity * delta);
 			Airborne = true;
-			AnimTree.Set("parameters/StateMachine/conditions/falling", true);
+			AnimTree.Set("parameters/StateMachine/conditions/airborne", true);
+			AnimTree.Set("parameters/StateMachine/conditions/walking", false);
+			AnimTree.Set("parameters/StateMachine/conditions/running", false);
+			AnimTree.Set("parameters/StateMachine/conditions/idle", false);
 			
 			if (Ascending) {
 				DeltaTot += delta;
@@ -119,15 +121,20 @@ public partial class MovementComponent : Node {
 			}
 		}
 		
-		//AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
+		AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
 		
 		Strafe = Strafe.Lerp(StrafeDirection, (float)inertia);
 		AnimTree.Set("parameters/StateMachine/Walking/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
 		AnimTree.Set("parameters/StateMachine/Running/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
+		AnimTree.Set("parameters/walk_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
+		AnimTree.Set("parameters/run_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
 		
 		Actor.Velocity = Velocity;
 		Actor.MoveAndSlide();
 	}
 }
+
+
+
 
 
