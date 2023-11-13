@@ -6,8 +6,7 @@ public partial class AnimationComponent : Node {
 	private AnimationTree TargetAnimationTree;
 
 	public override void _Ready(){
-		//var ciao = GetNode<MovementComponent>("").Connect(SignalName.MovementStatusChanged, );
-		//(Owner as Node3D).Connect("MovementStatusChanged", Callable.From(() => Owner as Node3D));
+		
 	}
 
 	private void MotionStatusChanged(double value, double delta) {
@@ -26,6 +25,9 @@ public partial class AnimationComponent : Node {
 		TargetAnimationTree.Set("parameters/animation_state_machine/movement/run_blend/blend_position", strafe);
 	}
 }
+
+
+
 
 
 
