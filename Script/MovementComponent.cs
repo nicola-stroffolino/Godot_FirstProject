@@ -16,7 +16,9 @@ public partial class MovementComponent : Node {
 	[Signal]
 	public delegate void MotionStateEventHandler(double value, double delta);
 	[Signal]
-	public delegate void JumpStateEventHandler(double value, double delta);
+	public delegate void JumpStateEventHandler(bool value);
+	[Signal]
+	public delegate void StrafeStateEventHandler(Vector2 strafe);
 
 	private int ActualSpeed;
 	private float Gravity;
@@ -40,7 +42,6 @@ public partial class MovementComponent : Node {
 	private bool Ascending = false;
 	private bool Airborne = false;
 	private double DeltaTot = 0f;
-	private string MovementStatus = "idle";
 
 	public override void _PhysicsProcess(double delta) {
 		double inertia = delta * 5;
@@ -67,24 +68,11 @@ public partial class MovementComponent : Node {
 			Velocity.X = Mathf.Lerp(Velocity.X, Direction.X * ActualSpeed, (float)inertia);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, Direction.Z * ActualSpeed, (float)inertia);
 			
-			if (ActualSpeed == RunningSpeed) {
-				AnimTree.Set("parameters/StateMachine/conditions/idle", false);
-				AnimTree.Set("parameters/StateMachine/conditions/walking", false);
-				AnimTree.Set("parameters/StateMachine/conditions/running", true);
-			} else {
-				AnimTree.Set("parameters/StateMachine/conditions/idle", false);
-				AnimTree.Set("parameters/StateMachine/conditions/walking", true);
-				AnimTree.Set("parameters/StateMachine/conditions/running", false);
-			}
 			EmitSignal(SignalName.MotionState, ActualSpeed == RunningSpeed ? 1 : 0, delta);
 		} else {
 			Velocity.X = Mathf.Lerp(Velocity.X, 0f, (float)inertia);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, 0f, (float)inertia);
 			StrafeDirection = Vector3.Zero;
-			
-			AnimTree.Set("parameters/StateMachine/conditions/idle", true);
-			AnimTree.Set("parameters/StateMachine/conditions/walking", false);
-			AnimTree.Set("parameters/StateMachine/conditions/running", false);
 
 			EmitSignal(SignalName.MotionState, -1, delta);
 		}
@@ -98,15 +86,12 @@ public partial class MovementComponent : Node {
 			}
 			if (Airborne) {
 				Airborne = false;
-				AnimTree.Set("parameters/StateMachine/conditions/airborne", false);
+				EmitSignal(SignalName.JumpState, false);
 			}
 		} else {
 			Velocity.Y -= (float)(Gravity * delta);
 			Airborne = true;
-			AnimTree.Set("parameters/StateMachine/conditions/airborne", true);
-			AnimTree.Set("parameters/StateMachine/conditions/walking", false);
-			AnimTree.Set("parameters/StateMachine/conditions/running", false);
-			AnimTree.Set("parameters/StateMachine/conditions/idle", false);
+			EmitSignal(SignalName.JumpState, true);
 			
 			if (Ascending) {
 				DeltaTot += delta;
@@ -121,13 +106,10 @@ public partial class MovementComponent : Node {
 			}
 		}
 		
-		AnimTree.Set("parameters/jump_blend/blend_amount", DeltaTot / TimeToJumpPeak);
-		
 		Strafe = Strafe.Lerp(StrafeDirection, (float)inertia);
-		AnimTree.Set("parameters/StateMachine/Walking/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
-		AnimTree.Set("parameters/StateMachine/Running/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
-		AnimTree.Set("parameters/walk_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
-		AnimTree.Set("parameters/run_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
+//		AnimTree.Set("parameters/animation_state_machine/movement/walk_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
+//		AnimTree.Set("parameters/animation_state_machine/movement/run_blend/blend_position", new Vector2(-Strafe.X, -Strafe.Z));
+		EmitSignal(SignalName.StrafeState, new Vector2(-Strafe.X, -Strafe.Z));
 		
 		Actor.Velocity = Velocity;
 		Actor.MoveAndSlide();
