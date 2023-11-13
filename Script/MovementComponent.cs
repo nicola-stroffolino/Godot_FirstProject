@@ -82,7 +82,7 @@ public partial class MovementComponent : Node {
 	private void HandleVelocity(bool moving, double delta) {
 		inertia = delta * 5;
 		if (moving) {
-			//HCamRotation = GetNode<Node3D>("../CameraComponent/Horizontal").GlobalTransform.Basis.GetEuler().Y;
+			HCamRotation = GetNode<Node3D>("../CameraComponent/Horizontal").GlobalTransform.Basis.GetEuler().Y;
 			
 			var Armature = GetNode<Node3D>("../Armature");
 			Armature.Rotation = new Vector3 {
