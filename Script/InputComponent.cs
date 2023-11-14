@@ -10,26 +10,34 @@ public partial class InputComponent : Node {
 	public delegate void VelocityEventHandler(bool moving, double delta);
 	[Signal]
 	public delegate void CameraRotationEventHandler(InputEventMouseMotion motion);
+	[Signal]
+	public delegate void JumpedEventHandler();
 	
 	public override void _Ready() {
 	}
 	
 	public override void _PhysicsProcess(double delta) {
-		if (Input.IsActionPressed("move_right") || Input.IsActionPressed("move_left") || Input.IsActionPressed("move_back") || Input.IsActionPressed("move_forward")) {
-			var Direction = new Vector3 {
-				X = Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left"),
-				Y = 0,
-				Z = Input.GetActionStrength("move_back") - Input.GetActionStrength("move_forward")
-			};
-			EmitSignal(SignalName.DirectionState, Direction);
-			EmitSignal(SignalName.SprintState, Input.IsActionPressed("sprint"));
-			EmitSignal(SignalName.Velocity, true, delta);
-		} else {
-			EmitSignal(SignalName.Velocity, false, delta);
-		}
+		var Direction = new Vector3 {
+			X = Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left"),
+			Y = 0,
+			Z = Input.GetActionStrength("move_back") - Input.GetActionStrength("move_forward")
+		};
+		EmitSignal(SignalName.DirectionState, Direction);
+		EmitSignal(SignalName.SprintState, Input.IsActionPressed("sprint"));
+		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.Jumped);
 	}
 	
-	public override void _Input(InputEvent ev) {
-		if (ev is InputEventMouseMotion m) EmitSignal(SignalName.CameraRotation, m);
+	public override void _Input(InputEvent @event) {
+		if (@event is InputEventMouseMotion m) EmitSignal(SignalName.CameraRotation, m);
+//		if (@event is InputEventKey a) {
+//			GD.Print("George Lefter");
+//			if (a.IsActionPressed("jump")) EmitSignal(SignalName.Jumped);
+//		}
+	}
+	
+	public override void _UnhandledInput(InputEvent @event) {
+		if (@event is InputEventKey eventKey)
+			if (eventKey.Pressed && eventKey.Keycode == Key.Escape)
+				GetTree().Quit();
 	}
 }

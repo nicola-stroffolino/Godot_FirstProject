@@ -10,9 +10,8 @@ public partial class AnimationComponent : Node {
 	}
 
 	private void MotionStatusChanged(double value, double delta) {
-		TargetAnimationTree.Set("parameters/animation_state_machine/movement/iwr_blend/blend_amount", Mathf.Lerp(
-			(float)TargetAnimationTree.Get("parameters/animation_state_machine/movement/iwr_blend/blend_amount"), value, delta * 5
-		));
+		const string IWR = "parameters/animation_state_machine/movement/iwr_blend/blend_amount";
+		TargetAnimationTree.Set(IWR, Mathf.Lerp((float)TargetAnimationTree.Get(IWR), value, delta * 5));
 	}
 
 	private void JumpStateChanged(bool value) {
