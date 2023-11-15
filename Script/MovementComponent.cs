@@ -12,14 +12,14 @@ public partial class MovementComponent : Node {
 	public float TimeToJumpPeak { get; set; } = .4f; //second
 	[Export]
 	public int JumpHeight { get; set; } = 2; //meter
-
+	
 	[Signal]
 	public delegate void MotionStateEventHandler(double value, double delta);
 	[Signal]
 	public delegate void JumpStateEventHandler(bool value);
 	[Signal]
 	public delegate void StrafeStateEventHandler(Vector2 strafe);
-
+	
 	private int ActualSpeed;
 	private float Gravity;
 	private float JumpSpeed;
@@ -30,7 +30,7 @@ public partial class MovementComponent : Node {
 		Gravity = 2 * JumpHeight / (TimeToJumpPeak*TimeToJumpPeak); //m/s^2
 		JumpSpeed = Gravity * TimeToJumpPeak; //m/s
 	}
-
+	
 	private Vector3 Direction = Vector3.Zero;
 	private Vector3 Velocity = Vector3.Zero;
 	private Vector3 StrafeDirection = Vector3.Zero;
@@ -40,98 +40,70 @@ public partial class MovementComponent : Node {
 	private double DeltaTot = 0f;
 	private float HCamRotation = 0;
 	private double inertia = 0;
-
+	
 	public override void _PhysicsProcess(double delta) {
-		if (!Actor.IsOnFloor()) Velocity.Y -= (float)(Gravity * delta);
 		inertia = delta * 5;
-		HandleMovement(delta);
-		if (Actor.IsOnFloor()) {
-//			DeltaTot = 0;			
-//			if (Input.IsActionPressed("jump")) {
-//				Velocity.Y = JumpSpeed;
-//				Ascending = true;
-//			}
-//			if (Airborne) {
-//				Airborne = false;
-//
-//				// Animation
-//				//EmitSignal(SignalName.JumpState, false);
-//			}
-		} else {
-//			Airborne = true;
-			//GD.Print(Velocity.Y);
-			// Animation
-			//EmitSignal(SignalName.JumpState, true);
-			
-//			if (Ascending) {
-//				DeltaTot += delta;
-//				if (DeltaTot >= TimeToJumpPeak) {
-//					Ascending = false;
-//				}
-//			} else {
-//				DeltaTot -= delta;
-//				if (DeltaTot <= 0) {
-//					DeltaTot = 0;
-//				}
-//			}
-		}
-	}
-	
-	private void DirectionStateChanged(Vector3 direction) {
-		Direction = direction.Rotated(Vector3.Up, HCamRotation).Normalized();
-		StrafeDirection = StrafeDirection.Lerp(direction, (float)inertia);
-		
-		// Animatiion
-		EmitSignal(SignalName.StrafeState, new Vector2(-StrafeDirection.X, -StrafeDirection.Z));
-	}
-	
-	private void SprintStateChanged(bool sprinting) {
-		ActualSpeed = sprinting ? RunningSpeed : WalkingSpeed;
-	}
-	
-	private void HandleMovement(double delta) {
-		if (Direction != Vector3.Zero) {
-			HCamRotation = GetNode<Node3D>("../CameraComponent/Horizontal").GlobalTransform.Basis.GetEuler().Y;
-			
-			var Armature = GetNode<Node3D>("../Armature");
-			Armature.Rotation = new Vector3 {
-				X = (float)Math.PI/2, // 90 deg = π/2
-				Y = (float)Mathf.LerpAngle(Armature.Rotation.Y, HCamRotation + (float)Math.PI, delta * AngularAcceleration)
-			};
-			
-			Velocity.X = Mathf.Lerp(Velocity.X, Direction.X * ActualSpeed, (float)delta * 5);
-			Velocity.Z = Mathf.Lerp(Velocity.Z, Direction.Z * ActualSpeed, (float)delta * 5);
-			
-			// Animation
-			EmitSignal(SignalName.MotionState, ActualSpeed == RunningSpeed ? 1 : 0, delta);
-		} else {
-			Velocity.X = Mathf.Lerp(Velocity.X, 0f, (float)delta * 5);
-			Velocity.Z = Mathf.Lerp(Velocity.Z, 0f, (float)delta * 5);
-			
-			// Animation
-			EmitSignal(SignalName.MotionState, -1, delta);
-		}
+		if (!Actor.IsOnFloor()) Velocity.Y -= (float)(Gravity * delta);
+		VelocityChanger(delta);
+		RotateActor(delta);
+		HandleJump();
 		Actor.Velocity = Velocity;
 		Actor.MoveAndSlide();
 	}
 	
+	private void VelocityChanger(double delta) {
+		if (Direction == Vector3.Zero) {
+			Velocity.X = Mathf.Lerp(Velocity.X, 0f, (float)delta * 5);
+			Velocity.Z = Mathf.Lerp(Velocity.Z, 0f, (float)delta * 5);
+			// Animation
+			EmitSignal(SignalName.MotionState, -1, delta);
+			return;
+		}
+		
+		Velocity.X = Mathf.Lerp(Velocity.X, Direction.X * ActualSpeed, (float)delta * 5);
+		Velocity.Z = Mathf.Lerp(Velocity.Z, Direction.Z * ActualSpeed, (float)delta * 5);
+		// Animation
+		EmitSignal(SignalName.MotionState, ActualSpeed == RunningSpeed ? 1 : 0, delta);
+	}
+	
+	private void RotateActor(double delta) {
+		if (Direction == Vector3.Zero) return;
+		
+		HCamRotation = GetNode<Node3D>("../CameraComponent/Horizontal").GlobalTransform.Basis.GetEuler().Y;
+		var Armature = GetNode<Node3D>("../Armature");
+		Armature.Rotation = new Vector3 {
+			X = (float)Math.PI/2, // 90 deg = π/2
+			Y = (float)Mathf.LerpAngle(Armature.Rotation.Y, HCamRotation + (float)Math.PI, delta * AngularAcceleration)
+		};
+	}
+		
 	private void HandleJump() {
-		if (Actor.IsOnFloor()) {
-			Velocity.Y = JumpSpeed;
-			if (Airborne) {
-				Airborne = false;
-				GD.Print("Landed");
-				// Animation
-				EmitSignal(SignalName.JumpState, false);
-			}
-		} else {
+		if (!Actor.IsOnFloor()) {
 			Airborne = true;
 			//Animation
 			EmitSignal(SignalName.JumpState, true);
+			return;
+		}
+		
+		if (Airborne) {
+			Airborne = false;
+			// Animation
+			EmitSignal(SignalName.JumpState, false);
 		}
 	}
+	
+	private void DirectionStatus(Vector3 direction) {
+		Direction = direction.Rotated(Vector3.Up, HCamRotation).Normalized();
+		StrafeDirection = StrafeDirection.Lerp(direction, (float)inertia);
+		// Animatiion
+		EmitSignal(SignalName.StrafeState, new Vector2(-StrafeDirection.X, -StrafeDirection.Z));
+	}
+	
+	private void SprintStatus(bool sprinting) {
+		ActualSpeed = sprinting ? RunningSpeed : WalkingSpeed;
+	}
+	
+	private void JumpAction() {
+		if (Actor.IsOnFloor()) Velocity.Y = JumpSpeed;
+	}
 }
-
-
-
-

@@ -3,18 +3,13 @@ using System;
 
 public partial class InputComponent : Node {
 	[Signal]
-	public delegate void DirectionStateEventHandler(Vector3 direction);
+	public delegate void DirectionStatusEventHandler(Vector3 direction);
 	[Signal]
-	public delegate void SprintStateEventHandler(bool sprinting);
+	public delegate void SprintStatusEventHandler(bool sprinting);
 	[Signal]
-	public delegate void VelocityEventHandler(bool moving, double delta);
+	public delegate void CameraStatusEventHandler(InputEventMouseMotion motion);
 	[Signal]
-	public delegate void CameraRotationEventHandler(InputEventMouseMotion motion);
-	[Signal]
-	public delegate void JumpedEventHandler();
-	
-	public override void _Ready() {
-	}
+	public delegate void JumpActionEventHandler();
 	
 	public override void _PhysicsProcess(double delta) {
 		var Direction = new Vector3 {
@@ -22,17 +17,13 @@ public partial class InputComponent : Node {
 			Y = 0,
 			Z = Input.GetActionStrength("move_back") - Input.GetActionStrength("move_forward")
 		};
-		EmitSignal(SignalName.DirectionState, Direction);
-		EmitSignal(SignalName.SprintState, Input.IsActionPressed("sprint"));
-		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.Jumped);
+		EmitSignal(SignalName.DirectionStatus, Direction);
+		EmitSignal(SignalName.SprintStatus, Input.IsActionPressed("sprint"));
+		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.JumpAction);
 	}
 	
 	public override void _Input(InputEvent @event) {
-		if (@event is InputEventMouseMotion m) EmitSignal(SignalName.CameraRotation, m);
-//		if (@event is InputEventKey a) {
-//			GD.Print("George Lefter");
-//			if (a.IsActionPressed("jump")) EmitSignal(SignalName.Jumped);
-//		}
+		if (@event is InputEventMouseMotion m) EmitSignal(SignalName.CameraStatus, m);
 	}
 	
 	public override void _UnhandledInput(InputEvent @event) {

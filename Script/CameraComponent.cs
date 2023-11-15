@@ -6,6 +6,8 @@ public partial class CameraComponent : Node {
 	public float HSensitivity { get; set; } = .1f;
 	[Export]
 	public float VSensitivity { get; set; } = .1f;
+	[Signal]
+	public delegate void EulerEventHandler();
 
 	private float HCamRotation = 0;
 	private float VCamRotation = 0;
@@ -28,6 +30,3 @@ public partial class CameraComponent : Node {
 		};
 	}
 }
-
-
-
