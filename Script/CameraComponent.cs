@@ -18,7 +18,7 @@ public partial class CameraComponent : Node {
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
-	private void CameraRotationChanged(InputEventMouseMotion motion) {
+	private void RotateCamera(InputEventMouseMotion motion) {
 		HCamRotation -= motion.Relative.X * HSensitivity;
 		VCamRotation -= motion.Relative.Y * VSensitivity;
 		VCamRotation = Mathf.Clamp(VCamRotation, VCam_Min, VCam_Max);
