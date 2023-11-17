@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2kkwf263txv2"]
+[gd_scene load_steps=12 format=3 uid="uid://c2kkwf263txv2"]
 
 [ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://Scenes/player.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://bpjcykt7m0ik2" path="res://icon.png" id="2"]
+[ext_resource type="MeshLibrary" uid="uid://bmnftujq0j5hp" path="res://Mesh/structures_mesh_library.tres" id="3_og7nl"]
 
 [sub_resource type="Sky" id="Sky_5h0ts"]
 
@@ -78,3 +79,11 @@ shape = SubResource("4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("5")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("3_og7nl")
+cell_size = Vector3(3.5, 3, 3.5)
+data = {
+"cells": PackedInt32Array(65537, 65535, 0, 1, 65535, 0, 0, 65535, 1, 65535, 65535, 1, 65535, 65534, 1, 0, 65534, 1)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
