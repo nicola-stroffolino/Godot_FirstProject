@@ -44,14 +44,14 @@ public partial class MovementComponent : Node {
 	public override void _PhysicsProcess(double delta) {
 		inertia = delta * 5;
 		if (!Actor.IsOnFloor()) Velocity.Y -= (float)(Gravity * delta);
-		VelocityChanger(delta);
+		ChangeVelocity(delta);
 		RotateActor(delta);
 		HandleJump();
 		Actor.Velocity = Velocity;
 		Actor.MoveAndSlide();
 	}
 	
-	private void VelocityChanger(double delta) {
+	private void ChangeVelocity(double delta) {
 		if (Direction == Vector3.Zero) {
 			Velocity.X = Mathf.Lerp(Velocity.X, 0f, (float)delta * 5);
 			Velocity.Z = Mathf.Lerp(Velocity.Z, 0f, (float)delta * 5);
@@ -92,18 +92,21 @@ public partial class MovementComponent : Node {
 		}
 	}
 	
-	private void DirectionStatus(Vector3 direction) {
+	private void RotateDirection(Vector3 direction) {
 		Direction = direction.Rotated(Vector3.Up, HCamRotation).Normalized();
+	}
+	
+	private void HandleStrafe(Vector3 direction) {
 		StrafeDirection = StrafeDirection.Lerp(direction, (float)inertia);
 		// Animatiion
 		EmitSignal(SignalName.StrafeState, new Vector2(-StrafeDirection.X, -StrafeDirection.Z));
 	}
 	
-	private void SprintStatus(bool sprinting) {
+	private void ChangeSpeed(bool sprinting) {
 		ActualSpeed = sprinting ? RunningSpeed : WalkingSpeed;
 	}
 	
-	private void JumpAction() {
+	private void Jump() {
 		if (Actor.IsOnFloor()) Velocity.Y = JumpSpeed;
 	}
 }

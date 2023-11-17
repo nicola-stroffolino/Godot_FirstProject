@@ -5,11 +5,13 @@ public partial class InputComponent : Node {
 	[Signal]
 	public delegate void DirectionStatusEventHandler(Vector3 direction);
 	[Signal]
+	public delegate void StrafeStatusEventHandler(Vector3 direction);
+	[Signal]
 	public delegate void SprintStatusEventHandler(bool sprinting);
 	[Signal]
 	public delegate void CameraStatusEventHandler(InputEventMouseMotion motion);
 	[Signal]
-	public delegate void JumpActionEventHandler();
+	public delegate void JumpStatusEventHandler();
 	
 	public override void _PhysicsProcess(double delta) {
 		var Direction = new Vector3 {
@@ -18,8 +20,9 @@ public partial class InputComponent : Node {
 			Z = Input.GetActionStrength("move_back") - Input.GetActionStrength("move_forward")
 		};
 		EmitSignal(SignalName.DirectionStatus, Direction);
+		EmitSignal(SignalName.StrafeStatus, Direction);
 		EmitSignal(SignalName.SprintStatus, Input.IsActionPressed("sprint"));
-		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.JumpAction);
+		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.JumpStatus);
 	}
 	
 	public override void _Input(InputEvent @event) {
