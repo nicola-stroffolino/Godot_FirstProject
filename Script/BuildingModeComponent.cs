@@ -5,18 +5,19 @@ using System.Collections.Immutable;
 using System.Linq;
 
 public partial class BuildingModeComponent : Node {
+	[Signal]
+	public delegate void BuildSelectedEventHandler(int selection);
 	[Export]
 	private PanelContainer IconsPanel;
 	private bool InBuildingMode = false;
-	private IEnumerable<TextureRect> Structures;
+	private IEnumerable<PanelContainer> StructureIcons;
 	private int StructureSelection;
 	
 	public override void _Ready() {
 		IconsPanel.Visible = false;
-		Structures = IconsPanel.GetNode<HBoxContainer>("HBoxContainer").GetChildren().Cast<TextureRect>();
-		StructureSelection = Structures.First().GetIndex();
-		GD.Print(string.Join(", ", Structures.Select(s => s.Name)));
-		GD.Print("Currently selected: " + Structures.ElementAt(StructureSelection).Name);
+		StructureIcons = IconsPanel.GetNode<HBoxContainer>("HBoxContainer").GetChildren().Cast<PanelContainer>();
+		StructureSelection = StructureIcons.First().GetIndex();
+		StructureIcons.ElementAt(StructureSelection).GetNode<TextureRect>("Selection").Visible = true;
 	}
 	
 	public override void _Process (double delta) {
@@ -32,14 +33,20 @@ public partial class BuildingModeComponent : Node {
 	private void CycleStructureSelection(long direction) {
 		if (!InBuildingMode) return;
 		
-		if (direction == 'u') StructureSelection++;
-		else if (direction == 'd') StructureSelection--;
+		StructureIcons.ElementAt(StructureSelection).GetNode<TextureRect>("Selection").Visible = false;
+		
+		if (direction == 'u') StructureSelection = (StructureSelection + 1) % 4;
+		else if (direction == 'd') {
+			StructureSelection--;
+			if (StructureSelection < 0) StructureSelection = 3;
+		}
 
-		StructureSelection %= 4;
-
-		GD.Print("Currently selected: " + Structures.ElementAt(StructureSelection).Name);
+		StructureIcons.ElementAt(StructureSelection).GetNode<TextureRect>("Selection").Visible = true;
+	}
+	
+	private void Build() {
+		EmitSignal(SignalName.BuildSelected, StructureSelection);
 	}
 }
-
 
 

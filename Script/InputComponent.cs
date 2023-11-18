@@ -16,6 +16,8 @@ public partial class InputComponent : Node {
 	public delegate void BuildingModeStatusEventHandler();
 	[Signal]
 	public delegate void ScrollStatusEventHandler(char direction);
+	[Signal]
+	public delegate void LeftClickEventHandler();
 	
 	public override void _PhysicsProcess(double delta) {
 		var Direction = new Vector3 {
@@ -28,13 +30,14 @@ public partial class InputComponent : Node {
 		EmitSignal(SignalName.SprintStatus, Input.IsActionPressed("sprint"));
 		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.JumpStatus);
 		if (Input.IsActionJustPressed("building_mode")) EmitSignal(SignalName.BuildingModeStatus);
+		if (Input.IsActionPressed("left_click")) EmitSignal(SignalName.LeftClick);
 	}
 	
 	public override void _Input(InputEvent @event) {
 		if (@event is InputEventMouseMotion m) EmitSignal(SignalName.CameraStatus, m);
 		if (@event is InputEventMouseButton b){
-			if (b.IsActionPressed("next_building")) EmitSignal(SignalName.ScrollStatus, 'u');
-			if (b.IsActionPressed("previous_building")) EmitSignal(SignalName.ScrollStatus, 'd');
+			if (b.IsActionPressed("next_building")) EmitSignal(SignalName.ScrollStatus, 'd');
+			if (b.IsActionPressed("previous_building")) EmitSignal(SignalName.ScrollStatus, 'u');
 		}
 	}
 	
