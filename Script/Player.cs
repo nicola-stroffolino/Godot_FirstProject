@@ -9,11 +9,6 @@ public partial class Player : CharacterBody3D {
 		Main = GetNode<Node3D>("..");
 	}
 
-	public override void _PhysicsProcess(double delta) {
-		// var b = (Node)InstanceFromId(StructureId);
-		// GD.Print(b.Name);
-	}
-
 	private void DisplayStructurePreview(PackedScene structure, bool selectionCycled) {
 		if (!selectionCycled && StructureId != 0) {
 			(InstanceFromId(StructureId) as Node).QueueFree();
