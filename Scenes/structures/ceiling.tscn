@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbjnu23cbnlhc"]
+
+[ext_resource type="Script" path="res://Script/structures/Ceiling.cs" id="1_rkobq"]
+[ext_resource type="Resource" uid="uid://bs0v7l8b1wqhu" path="res://resources/structure_size.tres" id="2_uxykv"]
+
+[node name="Ceiling" type="MeshInstance3D"]
+script = ExtResource("1_rkobq")
+StructureSettings = ExtResource("2_uxykv")

@@ -6,12 +6,16 @@ using System.Linq;
 
 public partial class BuildingModeComponent : Node {
 	[Signal]
-	public delegate void BuildSelectedEventHandler(int selection);
+	public delegate void BuildSelectedEventHandler(PackedScene structure, bool selectionCycled);
+	
 	[Export]
-	private PanelContainer IconsPanel;
+	public PanelContainer IconsPanel;
+	[Export]
+	public Godot.Collections.Array<PackedScene> Structures;
+	
 	private bool InBuildingMode = false;
 	private IEnumerable<PanelContainer> StructureIcons;
-	private int StructureSelection;
+	private int StructureSelection = 0;
 	
 	public override void _Ready() {
 		IconsPanel.Visible = false;
@@ -28,6 +32,7 @@ public partial class BuildingModeComponent : Node {
 		InBuildingMode = !InBuildingMode;
 		if (InBuildingMode) IconsPanel.Visible = true;
 		else IconsPanel.Visible = false;
+		EmitSignal(SignalName.BuildSelected, Structures[StructureSelection], false);
 	}
 	
 	private void CycleStructureSelection(long direction) {
@@ -42,10 +47,7 @@ public partial class BuildingModeComponent : Node {
 		}
 
 		StructureIcons.ElementAt(StructureSelection).GetNode<TextureRect>("Selection").Visible = true;
-	}
-	
-	private void Build() {
-		EmitSignal(SignalName.BuildSelected, StructureSelection);
+		EmitSignal(SignalName.BuildSelected, Structures[StructureSelection], true);
 	}
 }
 

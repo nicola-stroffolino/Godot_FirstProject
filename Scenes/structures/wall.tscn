@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch4wee18ajgua"]
+
+[ext_resource type="Script" path="res://Script/structures/Wall.cs" id="1_bh751"]
+[ext_resource type="Resource" uid="uid://bs0v7l8b1wqhu" path="res://resources/structure_size.tres" id="2_xpvhc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_m6hek"]
+size = Vector3(3.5, 3, 0.1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gjgcc"]
+data = PackedVector3Array(-1.75, 1.5, 0.05, 1.75, 1.5, 0.05, -1.75, -1.5, 0.05, 1.75, 1.5, 0.05, 1.75, -1.5, 0.05, -1.75, -1.5, 0.05, 1.75, 1.5, -0.05, -1.75, 1.5, -0.05, 1.75, -1.5, -0.05, -1.75, 1.5, -0.05, -1.75, -1.5, -0.05, 1.75, -1.5, -0.05, 1.75, 1.5, 0.05, 1.75, 1.5, -0.05, 1.75, -1.5, 0.05, 1.75, 1.5, -0.05, 1.75, -1.5, -0.05, 1.75, -1.5, 0.05, -1.75, 1.5, -0.05, -1.75, 1.5, 0.05, -1.75, -1.5, -0.05, -1.75, 1.5, 0.05, -1.75, -1.5, 0.05, -1.75, -1.5, -0.05, 1.75, 1.5, 0.05, -1.75, 1.5, 0.05, 1.75, 1.5, -0.05, -1.75, 1.5, 0.05, -1.75, 1.5, -0.05, 1.75, 1.5, -0.05, -1.75, -1.5, 0.05, 1.75, -1.5, 0.05, -1.75, -1.5, -0.05, 1.75, -1.5, 0.05, 1.75, -1.5, -0.05, -1.75, -1.5, -0.05)
+
+[node name="WallMesh" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_m6hek")
+script = ExtResource("1_bh751")
+StructureSettings = ExtResource("2_xpvhc")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_gjgcc")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2kkwf263txv2"]
+[gd_scene load_steps=10 format=3 uid="uid://c2kkwf263txv2"]
 
 [ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://Scenes/player.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://bpjcykt7m0ik2" path="res://icon.png" id="2"]
@@ -15,9 +15,6 @@ size = Vector3(120, 2, 120)
 
 [sub_resource type="BoxMesh" id="2"]
 size = Vector3(120, 2, 120)
-
-[sub_resource type="BoxShape3D" id="3"]
-size = Vector3(61, 20, 1)
 
 [sub_resource type="BoxShape3D" id="4"]
 
@@ -50,24 +47,6 @@ shape = SubResource("1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("2")
-
-[node name="Walls" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 16, 61)
-shape = SubResource("3")
-
-[node name="CollisionShape2" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 16, -61)
-shape = SubResource("3")
-
-[node name="CollisionShape3" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 61, 16, -1)
-shape = SubResource("3")
-
-[node name="CollisionShape4" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -61, 16, 1)
-shape = SubResource("3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 2, 6)
