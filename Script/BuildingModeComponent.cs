@@ -6,7 +6,9 @@ using System.Linq;
 
 public partial class BuildingModeComponent : Node {
 	[Signal]
-	public delegate void BuildSelectedEventHandler(PackedScene structure, bool selectionCycled);
+	public delegate void SelectedStructureEventHandler(PackedScene structure, bool selectionCycled);
+	[Signal]
+	public delegate void BuildStructureEventHandler(PackedScene structure);
 	
 	[Export]
 	public PanelContainer IconsPanel;
@@ -32,7 +34,7 @@ public partial class BuildingModeComponent : Node {
 		InBuildingMode = !InBuildingMode;
 		if (InBuildingMode) IconsPanel.Visible = true;
 		else IconsPanel.Visible = false;
-		EmitSignal(SignalName.BuildSelected, Structures[StructureSelection], false);
+		EmitSignal(SignalName.SelectedStructure, Structures[StructureSelection], false);
 	}
 	
 	private void CycleStructureSelection(long direction) {
@@ -47,8 +49,11 @@ public partial class BuildingModeComponent : Node {
 		}
 
 		StructureIcons.ElementAt(StructureSelection).GetNode<TextureRect>("Selection").Visible = true;
-		EmitSignal(SignalName.BuildSelected, Structures[StructureSelection], true);
+		EmitSignal(SignalName.SelectedStructure, Structures[StructureSelection], true);
+	}
+	
+	private void Build() {
+		EmitSignal(SignalName.BuildStructure, Structures[StructureSelection]);
 	}
 }
-
 

@@ -30,14 +30,14 @@ public partial class InputComponent : Node {
 		EmitSignal(SignalName.SprintStatus, Input.IsActionPressed("sprint"));
 		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.JumpStatus);
 		if (Input.IsActionJustPressed("building_mode")) EmitSignal(SignalName.BuildingModeStatus);
-		if (Input.IsActionPressed("left_click")) EmitSignal(SignalName.LeftClick);
+		if (Input.IsActionJustPressed("left_click")) EmitSignal(SignalName.LeftClick);
 	}
 	
 	public override void _Input(InputEvent @event) {
 		if (@event is InputEventMouseMotion m) EmitSignal(SignalName.CameraStatus, m);
-		if (@event is InputEventMouseButton b){
-			if (b.IsActionPressed("next_building")) EmitSignal(SignalName.ScrollStatus, 'd');
-			if (b.IsActionPressed("previous_building")) EmitSignal(SignalName.ScrollStatus, 'u');
+		if (@event is InputEventKey){
+			if (@event.IsActionPressed("next_building")) EmitSignal(SignalName.ScrollStatus, 'u');
+			if (@event.IsActionPressed("previous_building")) EmitSignal(SignalName.ScrollStatus, 'd');
 		}
 	}
 	
