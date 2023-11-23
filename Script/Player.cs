@@ -10,6 +10,9 @@ public partial class Player : CharacterBody3D {
 	private bool InBuildingMode = false;
 	private Vector3 Direction;
 
+	private const float UNIT = 3.5f / 2;
+	private const float DEPTH = 0.1f;
+	private const float HEIGHT = 3f / 2;
 
 	public override void _Ready() {
 		Main = GetNode<Node3D>("..");
@@ -39,7 +42,7 @@ public partial class Player : CharacterBody3D {
 
 	private void Build(PackedScene structure) {
 		var old_s = (MeshInstance3D) InstanceFromId(StructureId);
-		old_s.CreateConvexCollision();
+		old_s.CreateTrimeshCollision();
 
 		var new_s = (MeshInstance3D) structure.Instantiate();
 		StructureId = new_s.GetInstanceId();
