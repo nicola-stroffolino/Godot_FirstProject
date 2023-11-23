@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2kkwf263txv2"]
+[gd_scene load_steps=12 format=3 uid="uid://c2kkwf263txv2"]
 
 [ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://Scenes/player.tscn" id="1"]
+[ext_resource type="Script" path="res://Script/Main.cs" id="1_6l4gr"]
 [ext_resource type="Texture2D" uid="uid://bpjcykt7m0ik2" path="res://icon.png" id="2"]
+[ext_resource type="Material" path="res://Art/Alpha_Joints_MAT.material" id="2_lgt1j"]
 
 [sub_resource type="Sky" id="Sky_5h0ts"]
 
@@ -14,6 +16,7 @@ sky = SubResource("Sky_5h0ts")
 size = Vector3(120, 2, 120)
 
 [sub_resource type="BoxMesh" id="2"]
+material = ExtResource("2_lgt1j")
 size = Vector3(120, 2, 120)
 
 [sub_resource type="BoxShape3D" id="4"]
@@ -27,6 +30,7 @@ material = SubResource("6")
 
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103508, 0.0793247, 0.147133)
+script = ExtResource("1_6l4gr")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ohjep")
@@ -57,3 +61,9 @@ shape = SubResource("4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("5")
+
+[node name="GridMap" type="GridMap" parent="."]
+cell_size = Vector3(3.5, 3, 3.5)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
