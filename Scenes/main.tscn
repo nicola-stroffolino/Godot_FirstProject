@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c2kkwf263txv2"]
+[gd_scene load_steps=12 format=3 uid="uid://c2kkwf263txv2"]
 
 [ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://Scenes/player.tscn" id="1"]
 [ext_resource type="Script" path="res://Script/Main.cs" id="1_6l4gr"]
 [ext_resource type="Texture2D" uid="uid://bpjcykt7m0ik2" path="res://icon.png" id="2"]
 [ext_resource type="Material" path="res://Art/Alpha_Joints_MAT.material" id="2_lgt1j"]
-[ext_resource type="MeshLibrary" uid="uid://bpop0wf28vvpu" path="res://Art/structures_meshlib.tres" id="5_k4eyk"]
 
 [sub_resource type="Sky" id="Sky_5h0ts"]
 
@@ -64,12 +63,3 @@ shape = SubResource("4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("5")
-
-[node name="GridMap" type="GridMap" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.11022, 3.17982, -2.52226)
-mesh_library = ExtResource("5_k4eyk")
-cell_size = Vector3(4, 4, 4)
-data = {
-"cells": PackedInt32Array(65538, 65535, 2, 2, 65535, 0, 3, 65535, 196608, -65535, 65534, 196608, -65536, 65534, 196608, -1, 65534, 196608, 3, 0, 1441794, 65533, 0, 3, 65534, 0, 3, 65534, 1, 3, 65533, 1, 3, 65534, 65535, 3, 65533, 65535, 3)
-}
-metadata/_editor_floor_ = Vector3(0, 0, 0)
