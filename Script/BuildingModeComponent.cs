@@ -44,7 +44,7 @@ public partial class BuildingModeComponent : Node {
 		if (StructureSelection == 3) {
 			var scene = new PackedScene();
 			scene.Pack(Ceiling);
-            EmitSignal(SignalName.SelectedStructure, scene, false);
+			EmitSignal(SignalName.SelectedStructure, scene, false);
 		} else EmitSignal(SignalName.SelectedStructure, Structures[StructureSelection], false);
 	}
 	
@@ -64,7 +64,7 @@ public partial class BuildingModeComponent : Node {
 		if (StructureSelection == 3) {
 			var scene = new PackedScene();
 			scene.Pack(Ceiling);
-            EmitSignal(SignalName.SelectedStructure, scene, true);
+			EmitSignal(SignalName.SelectedStructure, scene, true);
 		} else EmitSignal(SignalName.SelectedStructure, Structures[StructureSelection], true);
 	}
 	
