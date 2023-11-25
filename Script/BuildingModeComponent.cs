@@ -24,10 +24,6 @@ public partial class BuildingModeComponent : Node {
 	private const float DEPTH = 0.1f;
 	private const float HEIGHT = 3f / 2;
 	private MeshInstance3D Ceiling;
-
-	private Node3D Main;
-	private PackedScene StructMeshLib = ResourceLoader.Load<PackedScene>("res://Scenes/structures.tscn");
-	private Array<Node> StructureMeshes;
 	
 	public override void _Ready() {
 		IconsPanel.Visible = false;
@@ -36,21 +32,6 @@ public partial class BuildingModeComponent : Node {
 		StructureIcons.ElementAt(StructureSelection).GetNode<TextureRect>("Selection").Visible = true;
 
 		Ceiling = CreateCeilingMesh();
-
-		// Testing
-
-		var sLib = StructMeshLib.Instantiate<Node3D>();
-		var Main = GetNode<Node3D>("../..");
-
-        StructureMeshes = sLib.GetChildren();
-		var meshList = StructureMeshes.Cast<MeshInstance3D>();
-		var mesh = meshList.ElementAt(0);
-
-		var s = sLib.GetChild<MeshInstance3D>(0);
-		
-		GD.Print(mesh.Name);
-		
-		Main.CallDeferred(Node3D.MethodName.AddChild, mesh);
 	}
 	
 	public override void _Process (double delta) {

@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://c2kkwf263txv2"]
 
-[ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://Scenes/player.tscn" id="1"]
-[ext_resource type="Script" path="res://Script/Main.cs" id="1_6l4gr"]
-[ext_resource type="Texture2D" uid="uid://bpjcykt7m0ik2" path="res://icon.png" id="2"]
-[ext_resource type="Material" path="res://Art/Alpha_Joints_MAT.material" id="2_lgt1j"]
+[ext_resource type="Script" path="res://Script/Main.cs" id="1_6yt1r"]
+[ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://scenes/player.tscn" id="2_6qu50"]
+[ext_resource type="Material" path="res://Art/Alpha_Joints_MAT.material" id="3_pkxq0"]
+[ext_resource type="Texture2D" uid="uid://bpjcykt7m0ik2" path="res://icon.png" id="4_urllb"]
 
 [sub_resource type="Sky" id="Sky_5h0ts"]
 
@@ -16,21 +16,21 @@ sky = SubResource("Sky_5h0ts")
 size = Vector3(120, 2, 120)
 
 [sub_resource type="BoxMesh" id="2"]
-material = ExtResource("2_lgt1j")
+material = ExtResource("3_pkxq0")
 size = Vector3(120, 2, 120)
 
 [sub_resource type="BoxShape3D" id="4"]
 
 [sub_resource type="StandardMaterial3D" id="6"]
 albedo_color = Color(0.701961, 0.956863, 0.984314, 1)
-albedo_texture = ExtResource("2")
+albedo_texture = ExtResource("4_urllb")
 
 [sub_resource type="BoxMesh" id="5"]
 material = SubResource("6")
 
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103508, 0.0793247, 0.147133)
-script = ExtResource("1_6l4gr")
+script = ExtResource("1_6yt1r")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ohjep")
@@ -41,7 +41,7 @@ light_energy = 1.397
 shadow_enabled = true
 sky_mode = 1
 
-[node name="Player" parent="." instance=ExtResource("1")]
+[node name="Player" parent="." instance=ExtResource("2_6qu50")]
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
