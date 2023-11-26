@@ -1,6 +1,3 @@
-[gd_scene load_steps=2 format=3 uid="uid://bo4k1o1dh8fji"]
-
-[ext_resource type="Script" path="res://Script/BuildingModeComponent.cs" id="1_uydtn"]
+[gd_scene format=3 uid="uid://bo4k1o1dh8fji"]
 
 [node name="BuildingModeComponent" type="Node"]
-script = ExtResource("1_uydtn")

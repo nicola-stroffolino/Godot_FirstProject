@@ -67,7 +67,7 @@ public partial class MovementComponent : Node {
 	}
 	
 	private void RotateActor(double delta) {
-		if (Direction == Vector3.Zero) return;
+		//if (Direction == Vector3.Zero) return;
 		
 		HCamRotation = GetNode<Node3D>("../CameraComponent/Horizontal").GlobalTransform.Basis.GetEuler().Y;
 		var Armature = GetNode<Node3D>("../Armature");
