@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="StructureSize" load_steps=2 format=3 uid="uid://bs0v7l8b1wqhu"]
-
-[ext_resource type="Script" path="res://Script/resources/StructureSize.cs" id="1_osupw"]
-
-[resource]
-script = ExtResource("1_osupw")
-LongSide = 3.5
-ShortSide = 3.0
-Depth = 0.1

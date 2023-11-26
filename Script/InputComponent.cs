@@ -35,7 +35,7 @@ public partial class InputComponent : Node {
 	
 	public override void _Input(InputEvent @event) {
 		if (@event is InputEventMouseMotion m) EmitSignal(SignalName.CameraStatus, m);
-		if (@event is InputEventKey){
+		if (@event is InputEventKey || @event is InputEventMouseButton){
 			if (@event.IsActionPressed("next_building")) EmitSignal(SignalName.ScrollStatus, 'u');
 			if (@event.IsActionPressed("previous_building")) EmitSignal(SignalName.ScrollStatus, 'd');
 		}

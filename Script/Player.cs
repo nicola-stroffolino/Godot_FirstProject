@@ -17,12 +17,12 @@ public partial class Player : CharacterBody3D {
 	public override void _Ready() {
 		Main = GetNode<Node3D>("..");
 	}
-
+	
 	public override void _Process(double delta) {
 		if (InBuildingMode) ProjectStructureDisplay(delta);
 	}
 
-	private void DisplayStructurePreview(PackedScene structure, bool selectionCycled) {
+	private void DisplayStructurePreview(MeshInstance3D structure, bool selectionCycled) {
 		InBuildingMode = true;
 		if (!selectionCycled && StructureId != 0) {
 			(InstanceFromId(StructureId) as Node).QueueFree();
@@ -35,17 +35,17 @@ public partial class Player : CharacterBody3D {
 			(InstanceFromId(StructureId) as Node).QueueFree();
 		}
 
-		var s = structure.Instantiate();
-		StructureId = s.GetInstanceId();
-		Main.AddChild(s);
+		//var s = structure.Instantiate();
+		StructureId = structure.GetInstanceId();
+		Main.AddChild(structure);
 	}
 
-	private void Build(PackedScene structure) {
+	private void Build(MeshInstance3D structure) {
 		var old_s = (MeshInstance3D) InstanceFromId(StructureId);
 		old_s.CreateTrimeshCollision();
 
-		var new_s = (MeshInstance3D) structure.Instantiate();
-		StructureId = new_s.GetInstanceId();
+		//var new_s = (MeshInstance3D) structure.Instantiate();
+		StructureId = structure.GetInstanceId();
 
 		DisplayStructurePreview(structure, true);
 	}

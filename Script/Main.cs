@@ -1,13 +1,13 @@
 using Godot;
 using Godot.NativeInterop;
 using System;
+using System.Linq;
 
 public partial class Main : Node3D {
-	private const float UNIT = 3.5f / 2;
-	private const float DEPTH = 0.1f;
-	private const float HEIGHT = 3f / 2;
-	
-
 	public override void _Ready() {
+		var scn = ResourceLoader.Load<PackedScene>("res://scenes/structures.tscn");
+		var arr = scn.Instantiate().GetChildren();
+		var s = (MeshInstance3D) arr.ElementAt(0).Duplicate();
+		AddChild(s);
 	}
 }
