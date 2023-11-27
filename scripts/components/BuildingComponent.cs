@@ -4,11 +4,6 @@ using System;
 using System.Linq;
 
 public partial class BuildingComponent : Node {
-	// [Signal]
-	// public delegate void SelectedStructureEventHandler(MeshInstance3D structure, bool selectionCycled);
-	// [Signal]
-	// public delegate void BuildStructureEventHandler(MeshInstance3D structure);
-	
 	[Export]
 	public Player Actor { get; set; }
 	[Export]
@@ -68,9 +63,37 @@ public partial class BuildingComponent : Node {
 		ChangeCurrentStructureInstance();
 		Actor.DisplayStructurePreview(CurrentStructureInstance);
 	}
-	
+
+	private void ApplyTransformProperties() {
+		var a = Actor.GetNode<Node3D>("Armature") ?? Actor;
+		SnapRotationY(a.Rotation.Y, 90);
+		SnapToPosition(4, 4, 4);
+	}
+
 	private void Build() {
 		if (Actor.IsInBuildingMode) Actor.Build(CurrentStructureInstance);
+	}
+
+
+
+	// Functional Methods
+	private void SnapRotationY(double rad_angle, int snap_angle_amplitude) {
+		double normalized_angle = Mathf.RadToDeg(rad_angle) % 360;
+		int snapped_angle = (int)(Math.Round(normalized_angle / snap_angle_amplitude) * snap_angle_amplitude) + 180;
+
+		CurrentStructureInstance.Rotation = new Vector3 {
+			X = CurrentStructureInstance.Rotation.X,
+			Y = Mathf.DegToRad(snapped_angle),
+			Z = CurrentStructureInstance.Rotation.Z
+		};
+	}
+
+	private void SnapToPosition(int x, int y, int z) {
+		CurrentStructureInstance.Position = new Vector3 {
+			X = (int) Math.Round(CurrentStructureInstance.Position.X / x) * x,
+			Y = (int) Math.Round(CurrentStructureInstance.Position.Y / y) * y,
+			Z = (int) Math.Round(CurrentStructureInstance.Position.Z / z) * z
+		};
 	}
 
 	private void ChangeCurrentStructureInstance() {

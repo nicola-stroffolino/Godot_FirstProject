@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://c2kkwf263txv2"]
 
 [ext_resource type="Script" path="res://Script/Main.cs" id="1_6yt1r"]
-[ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://scenes/player.tscn" id="2_6qu50"]
+[ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://Scenes/player.tscn" id="2_6qu50"]
 [ext_resource type="Material" path="res://Art/Alpha_Joints_MAT.material" id="3_pkxq0"]
 [ext_resource type="Texture2D" uid="uid://bpjcykt7m0ik2" path="res://icon.png" id="4_urllb"]
 

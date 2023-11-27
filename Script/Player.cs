@@ -3,14 +3,12 @@ using Godot;
 
 public partial class Player : CharacterBody3D {
 	[Export]
-	private int StructureDistance = 4;
+	private int StructureDistance = 16;
 	[Export]
 	public LineEdit Output { get; set; }
 	
 	public bool IsInBuildingMode { get; set; } = false;
-	
 	private Node3D Main;
-	private ulong StructureId = 0;
 
 	public override void _Ready() {
 		Main = GetNode<Node3D>("..");
@@ -43,19 +41,19 @@ public partial class Player : CharacterBody3D {
 		};
 
 		structure.Position = new Vector3 {
-			X = (float)(Math.Sin(a.Rotation.Y) * StructureDistance + Position.X),
+			X = (float)(Math.Sin(a.Rotation.Y) + Position.X),
 			Y = Position.Y,
-			Z = (float)(Math.Cos(a.Rotation.Y) * StructureDistance + Position.Z)
+			Z = (float)(Math.Cos(a.Rotation.Y) + Position.Z)
 		};
 
-		int x_tiles = (int) Math.Round(structure.Position.X / 4);
-		int y_tiles = (int) Math.Round(structure.Position.Y / 4);
-		int z_tiles = (int) Math.Round(structure.Position.Z / 4);
+		int x_tiles = (int) Math.Round(structure.Position.X / 4) * 4;
+		int y_tiles = (int) Math.Round(structure.Position.Y / 4) * 4;
+		int z_tiles = (int) Math.Round(structure.Position.Z / 4) * 4;
 
 		structure.Position = new Vector3 {
-			X = x_tiles * 4,
-			Y = y_tiles * 4 + 1,
-			Z = z_tiles * 4
+			X = x_tiles,
+			Y = y_tiles,
+			Z = z_tiles
 		};
 		
 		Output.Text = structure.Position.ToString() + " - " + rounded_deg;
