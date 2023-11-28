@@ -9,11 +9,17 @@ public partial class BuildingComponent : Node {
 	[Export]
 	public PackedScene StructuresScene { get; set; }
 	[Export]
+	public Vector3 TileSize { get; set; } = new Vector3(4, 4, 4);
+	[Export]
+	public Vector3 TilesStructureDistance { get; set; } = new Vector3(2, 1, 2);
+	[Export]
 	public PanelContainer IconsPanel { get; set; }
 
 	public Array<MeshInstance3D> Structures { get; set; } = new();
 	public int StructureSelection { get; set; } = 0;
 	public MeshInstance3D CurrentStructureInstance { get; set; }
+	public Vector3 StructureDistance { get; private set; }
+
 	// private IEnumerable<PanelContainer> StructureIcons;
 	
 	public override void _Ready() {
@@ -28,20 +34,24 @@ public partial class BuildingComponent : Node {
 		for (int i = 0; i < Structures.Count; i++) {
 			Structures[i] = (MeshInstance3D) mesh_list[i];
 		}
+
+		StructureDistance = TilesStructureDistance * TileSize;
+		GD.Print(StructureDistance);
 	}	
 	
 	public override void _Process (double delta) {
-		if (Actor.IsInBuildingMode) Actor.ProjectStructureDisplay(CurrentStructureInstance, delta);
+		if (Actor.IsInBuildingMode) ApplyTransformProperties();
 	}
 	
 	private void SwitchBuildingMode() {
+		if (!Actor.HasMethod("DisplayStructurePreview") || !Actor.HasMethod("DisposeStructurePreview")) return;
+		
 		Actor.IsInBuildingMode = !Actor.IsInBuildingMode;
 		GD.Print(Actor.IsInBuildingMode);
 
 		// if (Actor.IsInBuildingMode) IconsPanel.Visible = true;
 		// else IconsPanel.Visible = false;
 
-		if (!Actor.HasMethod("DisplayStructurePreview") || !Actor.HasMethod("DisposeStructurePreview")) return;
 
 		if (Actor.IsInBuildingMode) {
 			ChangeCurrentStructureInstance();
@@ -66,12 +76,19 @@ public partial class BuildingComponent : Node {
 
 	private void ApplyTransformProperties() {
 		var a = Actor.GetNode<Node3D>("Armature") ?? Actor;
+		CurrentStructureInstance.Position = new Vector3 {
+			X = (float)(Math.Sin(a.Rotation.Y) + Actor.Position.X),
+			Y = Actor.Position.Y,
+			Z = (float)(Math.Cos(a.Rotation.Y) + Actor.Position.Z)
+		};
 		SnapRotationY(a.Rotation.Y, 90);
 		SnapToPosition(4, 4, 4);
 	}
 
 	private void Build() {
-		if (Actor.IsInBuildingMode) Actor.Build(CurrentStructureInstance);
+		var new_s = (MeshInstance3D) CurrentStructureInstance.Duplicate();
+		new_s.CreateTrimeshCollision();
+		if (Actor.IsInBuildingMode) Actor.Build(new_s);
 	}
 
 
