@@ -82,7 +82,7 @@ public partial class BuildingComponent : Node {
 			Z = (float)(Math.Cos(a.Rotation.Y) + Actor.Position.Z)
 		};
 		SnapRotationY(a.Rotation.Y, 90);
-		SnapToPosition(4, 4, 4);
+		SnapToPosition(StructureDistance.X, StructureDistance.Y, StructureDistance.Z);
 	}
 
 	private void Build() {
@@ -105,7 +105,7 @@ public partial class BuildingComponent : Node {
 		};
 	}
 
-	private void SnapToPosition(int x, int y, int z) {
+	private void SnapToPosition(float x, float y, float z) {
 		CurrentStructureInstance.Position = new Vector3 {
 			X = (int) Math.Round(CurrentStructureInstance.Position.X / x) * x,
 			Y = (int) Math.Round(CurrentStructureInstance.Position.Y / y) * y,
