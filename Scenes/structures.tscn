@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dlgwj13swf2n7"]
 
-[ext_resource type="Texture2D" uid="uid://01bq1p55u04u" path="res://Art/structures_Planks003_1K-JPG_Color.png" id="1_oynyq"]
+[ext_resource type="Texture2D" uid="uid://01bq1p55u04u" path="res://assets/models/structures_Planks003_1K-JPG_Color.png" id="1_oynyq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qf7q1"]
 resource_name = "Material.001"

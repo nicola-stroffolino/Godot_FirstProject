@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://be1hv0dbrmeia"]
+
+[ext_resource type="PackedScene" uid="uid://wvfqpgusonbs" path="res://scenes/components/hitbox_component.tscn" id="1_f18np"]
+[ext_resource type="Script" path="res://scripts/entities/TestDummy.cs" id="1_pf0it"]
+[ext_resource type="PackedScene" uid="uid://clt6l3f2mxwrl" path="res://scenes/components/health_component.tscn" id="2_5qw4n"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cpb86"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rbdpd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_87blj"]
+radius = 0.6
+height = 2.2
+
+[node name="Enemy Test Dummy" type="CharacterBody3D"]
+script = ExtResource("1_pf0it")
+
+[node name="Collision Box" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_cpb86")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_rbdpd")
+skeleton = NodePath("")
+
+[node name="Health" parent="." instance=ExtResource("2_5qw4n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27691, 0)
+MaxHealth = 400.0
+
+[node name="Hitbox" parent="." instance=ExtResource("1_f18np")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("CapsuleShape3D_87blj")

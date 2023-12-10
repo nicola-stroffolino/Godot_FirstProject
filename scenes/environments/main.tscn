@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2kkwf263txv2"]
+
+[ext_resource type="Script" path="res://Script/Main.cs" id="1_ux7uj"]
+[ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://scenes/entities/player.tscn" id="2_tsvnn"]
+[ext_resource type="Material" path="res://assets/materials/Alpha_Joints_MAT.material" id="3_ppagt"]
+[ext_resource type="PackedScene" uid="uid://be1hv0dbrmeia" path="res://scenes/entities/test_dummy.tscn" id="4_aptte"]
+
+[sub_resource type="Sky" id="Sky_5h0ts"]
+
+[sub_resource type="Environment" id="Environment_ohjep"]
+background_mode = 1
+background_color = Color(0.54902, 0.803922, 1, 1)
+sky = SubResource("Sky_5h0ts")
+
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(120, 2, 120)
+
+[sub_resource type="BoxMesh" id="2"]
+material = ExtResource("3_ppagt")
+size = Vector3(120, 2, 120)
+
+[node name="Main" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103508, 0.0793247, 0.147133)
+script = ExtResource("1_ux7uj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ohjep")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 37, 0)
+light_energy = 1.397
+shadow_enabled = true
+sky_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("2_tsvnn")]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("2")
+
+[node name="Enemy Test Dummy" parent="." instance=ExtResource("4_aptte")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.530163, 5)
+
+[connection signal="SpreadDamage" from="Player" to="Enemy Test Dummy" method="TakeDamage"]

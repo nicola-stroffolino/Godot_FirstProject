@@ -2,6 +2,9 @@ using System;
 using Godot;
 
 public partial class Player : CharacterBody3D {
+	[Signal]
+	public delegate void SpreadDamageEventHandler(double amount);
+	
 	public bool IsInBuildingMode { get; set; } = false;
 	private Node3D Scene;
 
@@ -15,6 +18,10 @@ public partial class Player : CharacterBody3D {
 
 	public void InstantiateStructure(MeshInstance3D structure) {
 		Scene.AddChild(structure);
+	}
+	
+	public void Attack() {
+		EmitSignal(SignalName.SpreadDamage, 20);
 	}
 }
 

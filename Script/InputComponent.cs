@@ -18,6 +18,8 @@ public partial class InputComponent : Node {
 	public delegate void ScrollStatusEventHandler(char direction);
 	[Signal]
 	public delegate void LeftClickEventHandler();
+	[Signal]
+	public delegate void BasicAttackEventHandler();
 	
 	public override void _PhysicsProcess(double delta) {
 		var Direction = new Vector3 {
@@ -30,6 +32,7 @@ public partial class InputComponent : Node {
 		EmitSignal(SignalName.SprintStatus, Input.IsActionPressed("sprint"));
 		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.JumpStatus);
 		if (Input.IsActionJustPressed("building_mode")) EmitSignal(SignalName.BuildingModeStatus);
+		if (Input.IsActionJustPressed("basic_attack")) EmitSignal(SignalName.BasicAttack);
 		if (Input.IsActionJustPressed("left_click")) EmitSignal(SignalName.LeftClick);
 	}
 	

@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://bo4k1o1dh8fji"]
 
 [ext_resource type="Script" path="res://scripts/components/BuildingComponent.cs" id="1_kecyq"]
-[ext_resource type="Texture2D" uid="uid://crvgexsa472mh" path="res://Art/icons/wall_icon.png" id="1_mrtsy"]
-[ext_resource type="Texture2D" uid="uid://c766pabv4grsa" path="res://Art/icons/selected.png" id="2_pyd53"]
-[ext_resource type="Texture2D" uid="uid://deggvhoj5l6m6" path="res://Art/icons/floor_icon.png" id="3_i714n"]
-[ext_resource type="Texture2D" uid="uid://ejv0f1gs6q1i" path="res://Art/icons/stair_icon.png" id="4_u5g8k"]
-[ext_resource type="Texture2D" uid="uid://dxn2wvsynf4pe" path="res://Art/icons/ceiling_icon.png" id="5_ixr5x"]
+[ext_resource type="Texture2D" uid="uid://crvgexsa472mh" path="res://assets/icons/wall_icon.png" id="1_mrtsy"]
+[ext_resource type="Texture2D" uid="uid://c766pabv4grsa" path="res://assets/icons/selected.png" id="2_pyd53"]
+[ext_resource type="Texture2D" uid="uid://deggvhoj5l6m6" path="res://assets/icons/floor_icon.png" id="3_i714n"]
+[ext_resource type="Texture2D" uid="uid://ejv0f1gs6q1i" path="res://assets/icons/stair_icon.png" id="4_u5g8k"]
+[ext_resource type="Texture2D" uid="uid://dxn2wvsynf4pe" path="res://assets/icons/ceiling_icon.png" id="5_ixr5x"]
 
 [sub_resource type="SystemFont" id="SystemFont_qyros"]
 font_names = PackedStringArray("Torus Pro")
