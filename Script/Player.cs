@@ -20,8 +20,8 @@ public partial class Player : CharacterBody3D {
 		Scene.AddChild(structure);
 	}
 	
-	public void Attack() {
-		EmitSignal(SignalName.SpreadDamage, 20);
+	public void Attack(double damage) {
+		EmitSignal(SignalName.SpreadDamage, damage);
 	}
 }
 

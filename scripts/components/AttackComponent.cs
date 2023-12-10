@@ -12,6 +12,6 @@ public partial class AttackComponent : Node {
 	}
 	
 	public void Attack() {
-		Actor.Attack();
+		Actor.Attack(Damage);
 	}
 }
