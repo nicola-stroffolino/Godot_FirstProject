@@ -21,6 +21,8 @@ public partial class BuildingComponent : Node {
 	public Vector3 StructureDistance { get; private set; }
 
 	// private IEnumerable<PanelContainer> StructureIcons;
+	[Export]
+	public LineEdit Output { get; set; }
 	
 	public override void _Ready() {
 		// IconsPanel.Visible = false;
@@ -36,7 +38,6 @@ public partial class BuildingComponent : Node {
 		}
 
 		StructureDistance = TilesStructureDistance * TileSize;
-		GD.Print(StructureDistance);
 	}	
 	
 	public override void _Process (double delta) {
@@ -44,10 +45,9 @@ public partial class BuildingComponent : Node {
 	}
 	
 	private void SwitchBuildingMode() {
-		if (!Actor.HasMethod("DisplayStructurePreview") || !Actor.HasMethod("DisposeStructurePreview")) return;
+		// if (!Actor.HasMethod("DisplayStructurePreview") || !Actor.HasMethod("DisposeStructurePreview")) return;
 		
 		Actor.IsInBuildingMode = !Actor.IsInBuildingMode;
-		GD.Print(Actor.IsInBuildingMode);
 
 		// if (Actor.IsInBuildingMode) IconsPanel.Visible = true;
 		// else IconsPanel.Visible = false;
@@ -55,8 +55,8 @@ public partial class BuildingComponent : Node {
 
 		if (Actor.IsInBuildingMode) {
 			ChangeCurrentStructureInstance();
-			Actor.DisplayStructurePreview(CurrentStructureInstance);
-		} else Actor.DisposeStructurePreview(CurrentStructureInstance.GetInstanceId());
+			Actor.InstantiateStructure(CurrentStructureInstance);
+		} else Actor.DisposeStructure(CurrentStructureInstance);
 		
 		//EmitSignal(SignalName.SelectedStructure, Structures[StructureSelection].Duplicate(), false);
 	}
@@ -69,26 +69,27 @@ public partial class BuildingComponent : Node {
 		if (direction == 'u') StructureSelection = (StructureSelection + 1) % 4;
 		else StructureSelection = (Structures.Count + StructureSelection - 1) % 4;
 
-		Actor.DisposeStructurePreview(CurrentStructureInstance.GetInstanceId());
+		Actor.DisposeStructure(CurrentStructureInstance);
 		ChangeCurrentStructureInstance();
-		Actor.DisplayStructurePreview(CurrentStructureInstance);
+		Actor.InstantiateStructure(CurrentStructureInstance);
 	}
 
 	private void ApplyTransformProperties() {
 		var a = Actor.GetNode<Node3D>("Armature") ?? Actor;
 		CurrentStructureInstance.Position = new Vector3 {
-			X = (float)(Math.Sin(a.Rotation.Y) + Actor.Position.X),
+			X = Actor.Position.X,//(float)(Math.Sin(a.Rotation.Y) + Actor.Position.X),
 			Y = Actor.Position.Y,
-			Z = (float)(Math.Cos(a.Rotation.Y) + Actor.Position.Z)
+			Z = Actor.Position.Z//(float)(Math.Cos(a.Rotation.Y) + Actor.Position.Z)
 		};
-		SnapRotationY(a.Rotation.Y, 90);
-		SnapToPosition(StructureDistance.X, StructureDistance.Y, StructureDistance.Z);
+		// SnapRotationY(a.Rotation.Y, 90);
+		// SnapToPosition(TileSize.X, TileSize.Y, TileSize.Z);
+		Output.Text = "X: " + Math.Round(Math.Sin(a.Rotation.Y)) + " Z: " + Math.Round(Math.Cos(a.Rotation.Y)) + " - " + CurrentStructureInstance.Position.Round() + " - " + Actor.Position.Round();
 	}
 
 	private void Build() {
 		var new_s = (MeshInstance3D) CurrentStructureInstance.Duplicate();
 		new_s.CreateTrimeshCollision();
-		if (Actor.IsInBuildingMode) Actor.Build(new_s);
+		if (Actor.IsInBuildingMode) Actor.InstantiateStructure(new_s);
 	}
 
 
@@ -106,10 +107,14 @@ public partial class BuildingComponent : Node {
 	}
 
 	private void SnapToPosition(float x, float y, float z) {
+		int x_tiles = (int) Math.Round(CurrentStructureInstance.Position.X / x) * (int) x;
+		int y_tiles = (int) Math.Round(CurrentStructureInstance.Position.Y / y) * (int) y;
+		int z_tiles = (int) Math.Round(CurrentStructureInstance.Position.Z / z) * (int) z;
+
 		CurrentStructureInstance.Position = new Vector3 {
-			X = (int) Math.Round(CurrentStructureInstance.Position.X / x) * x,
-			Y = (int) Math.Round(CurrentStructureInstance.Position.Y / y) * y,
-			Z = (int) Math.Round(CurrentStructureInstance.Position.Z / z) * z
+			X = x_tiles, //(int) Math.Round(CurrentStructureInstance.Position.X / x) * x,
+			Y = y_tiles, //(int) Math.Round(CurrentStructureInstance.Position.Y / y) * y,
+			Z = z_tiles, //(int) Math.Round(CurrentStructureInstance.Position.Z / z) * z
 		};
 	}
 

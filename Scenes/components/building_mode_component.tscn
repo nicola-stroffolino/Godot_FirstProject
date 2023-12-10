@@ -1,3 +1,111 @@
-[gd_scene format=3 uid="uid://bo4k1o1dh8fji"]
+[gd_scene load_steps=8 format=3 uid="uid://bo4k1o1dh8fji"]
 
-[node name="BuildingModeComponent" type="Node"]
+[ext_resource type="Script" path="res://scripts/components/BuildingComponent.cs" id="1_kecyq"]
+[ext_resource type="Texture2D" uid="uid://crvgexsa472mh" path="res://Art/icons/wall_icon.png" id="1_mrtsy"]
+[ext_resource type="Texture2D" uid="uid://c766pabv4grsa" path="res://Art/icons/selected.png" id="2_pyd53"]
+[ext_resource type="Texture2D" uid="uid://deggvhoj5l6m6" path="res://Art/icons/floor_icon.png" id="3_i714n"]
+[ext_resource type="Texture2D" uid="uid://ejv0f1gs6q1i" path="res://Art/icons/stair_icon.png" id="4_u5g8k"]
+[ext_resource type="Texture2D" uid="uid://dxn2wvsynf4pe" path="res://Art/icons/ceiling_icon.png" id="5_ixr5x"]
+
+[sub_resource type="SystemFont" id="SystemFont_qyros"]
+font_names = PackedStringArray("Torus Pro")
+subpixel_positioning = 0
+
+[node name="BuildingModeComponent" type="Node" node_paths=PackedStringArray("IconsPanel", "Output")]
+script = ExtResource("1_kecyq")
+IconsPanel = NodePath("CanvasLayer/PanelContainer")
+Output = NodePath("CanvasLayer/LineEdit")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 1678.0
+offset_top = 725.0
+offset_right = 1894.0
+offset_bottom = 776.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="WallContainer" type="PanelContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Wall" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/WallContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+texture = ExtResource("1_mrtsy")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Selection" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/WallContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_pyd53")
+expand_mode = 1
+
+[node name="FloorContainer" type="PanelContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Floor" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/FloorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+texture = ExtResource("3_i714n")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Selection" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/FloorContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_pyd53")
+expand_mode = 1
+
+[node name="StairContainer" type="PanelContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Stair" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/StairContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+texture = ExtResource("4_u5g8k")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Selection" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/StairContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_pyd53")
+expand_mode = 1
+
+[node name="CeilingContainer" type="PanelContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Ceiling" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/CeilingContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+texture = ExtResource("5_ixr5x")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Selection" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/CeilingContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_pyd53")
+expand_mode = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer"]
+offset_left = 81.0
+offset_top = 54.0
+offset_right = 1839.0
+offset_bottom = 101.0
+theme_override_fonts/font = SubResource("SystemFont_qyros")
+theme_override_font_sizes/font_size = 28
+placeholder_text = "Structure Position"
+alignment = 1
