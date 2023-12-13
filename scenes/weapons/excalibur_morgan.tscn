@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuybxv02s1gad"]
+
+[ext_resource type="PackedScene" uid="uid://d1uhw4arvsw4p" path="res://assets/models/weapons/excalibur_morgan.glb" id="1_ij7ie"]
+
+[node name="excalibur_morgan" instance=ExtResource("1_ij7ie")]

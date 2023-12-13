@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://5xh0l0wj3g8o"]
+
+[ext_resource type="PackedScene" uid="uid://cms5bob2arbhx" path="res://assets/models/weapons/sword_of_rupture_enuma_elish_ea.glb" id="1_6mrhq"]
+
+[node name="sword_of_rupture_enuma_elish_ea" instance=ExtResource("1_6mrhq")]
