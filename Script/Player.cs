@@ -4,7 +4,10 @@ using Godot;
 public partial class Player : CharacterBody3D {
 	[Signal]
 	public delegate void SpreadDamageEventHandler(double amount);
-	
+
+	[Export]
+	public WeaponLoadout WeaponLoadout { get; set; }
+
 	public bool IsInBuildingMode { get; set; } = false;
 	private Node3D Scene;
 

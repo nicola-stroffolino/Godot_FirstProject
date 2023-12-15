@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://f8n14xc52hva"]
+
+[ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_rtlah"]
+
+[resource]
+script = ExtResource("1_rtlah")
+Damage = 40.0
+Range = 0

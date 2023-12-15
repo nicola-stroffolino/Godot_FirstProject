@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b68238hf6ct6k"]
+
+[ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_i2kjx"]
+
+[resource]
+script = ExtResource("1_i2kjx")
+Damage = 80.0
+Range = 2

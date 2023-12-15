@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://d4jr0j8cbss05"]
+
+[ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_07lfc"]
+
+[resource]
+script = ExtResource("1_07lfc")
+Damage = 180.0
+Range = 1

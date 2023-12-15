@@ -1,6 +1,18 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://hpedde7i15vw"]
+[gd_resource type="Resource" script_class="WeaponLoadout" load_steps=7 format=3 uid="uid://hpedde7i15vw"]
 
 [ext_resource type="Script" path="res://scripts/resources/WeaponLoadout.cs" id="1_77oer"]
+[ext_resource type="PackedScene" uid="uid://cuybxv02s1gad" path="res://scenes/weapons/excalibur_morgan.tscn" id="1_t40hm"]
+[ext_resource type="PackedScene" uid="uid://bv5mcml0kpfur" path="res://scenes/weapons/kanshou.tscn" id="2_y0aht"]
+[ext_resource type="PackedScene" uid="uid://2s7d5yiqslox" path="res://scenes/weapons/bakuya.tscn" id="3_7xwy1"]
+[ext_resource type="PackedScene" uid="uid://b17gpcj5iad70" path="res://scenes/weapons/gae_bolg.tscn" id="4_n7j3y"]
+[ext_resource type="PackedScene" uid="uid://bu55pidq4u1mh" path="res://scenes/weapons/sword_of_rupture_ea.tscn" id="5_f0hqm"]
 
 [resource]
 script = ExtResource("1_77oer")
+WeaponAssociation = {
+"bakuya": ExtResource("3_7xwy1"),
+"ea": ExtResource("5_f0hqm"),
+"excalibur": ExtResource("1_t40hm"),
+"gaebolg": ExtResource("4_n7j3y"),
+"kanshou": ExtResource("2_y0aht")
+}
