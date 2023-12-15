@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://hpedde7i15vw"]
+
+[ext_resource type="Script" path="res://scripts/resources/WeaponLoadout.cs" id="1_77oer"]
+
+[resource]
+script = ExtResource("1_77oer")
