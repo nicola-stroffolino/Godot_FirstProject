@@ -20,6 +20,8 @@ public partial class InputComponent : Node {
 	public delegate void LeftClickEventHandler();
 	[Signal]
 	public delegate void BasicAttackEventHandler();
+	[Signal]
+	public delegate void EquipWeaponEventHandler();
 	
 	public override void _PhysicsProcess(double delta) {
 		var Direction = new Vector3 {
@@ -34,6 +36,7 @@ public partial class InputComponent : Node {
 		if (Input.IsActionJustPressed("building_mode")) EmitSignal(SignalName.BuildingModeStatus);
 		if (Input.IsActionJustPressed("basic_attack")) EmitSignal(SignalName.BasicAttack);
 		if (Input.IsActionJustPressed("left_click")) EmitSignal(SignalName.LeftClick);
+		if (Input.IsActionJustPressed("equip_weapon")) EmitSignal(SignalName.EquipWeapon);
 	}
 	
 	public override void _Input(InputEvent @event) {

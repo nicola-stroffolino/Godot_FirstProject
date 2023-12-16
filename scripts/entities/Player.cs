@@ -7,6 +7,8 @@ public partial class Player : CharacterBody3D {
 
 	[Export]
 	public WeaponLoadout WeaponLoadout { get; set; }
+	[Export]
+	public PackedScene Weapon { get; set; }
 
 	public bool IsInBuildingMode { get; set; } = false;
 	private Node3D Scene;
@@ -26,7 +28,9 @@ public partial class Player : CharacterBody3D {
 	public void Attack(double damage) {
 		EmitSignal(SignalName.SpreadDamage, damage);
 	}
+
+	private void EquipWeapon() {
+		
+	}
 }
-
-
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://c2kkwf263txv2"]
 
-[ext_resource type="Script" path="res://Script/Main.cs" id="1_ux7uj"]
+[ext_resource type="Script" path="res://scripts/environments/Main.cs" id="1_80mdh"]
 [ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://scenes/entities/player.tscn" id="2_tsvnn"]
 [ext_resource type="Material" path="res://assets/materials/Alpha_Joints_MAT.material" id="3_ppagt"]
 [ext_resource type="PackedScene" uid="uid://be1hv0dbrmeia" path="res://scenes/entities/test_dummy.tscn" id="4_aptte"]
@@ -21,7 +21,7 @@ size = Vector3(120, 2, 120)
 
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103508, 0.0793247, 0.147133)
-script = ExtResource("1_ux7uj")
+script = ExtResource("1_80mdh")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ohjep")
