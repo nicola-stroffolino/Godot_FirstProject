@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Inventory" load_steps=2 format=3 uid="uid://dmqmq3dpl7gej"]
+
+[ext_resource type="Script" path="res://scripts/resources/Inventory.cs" id="1_155pv"]
+
+[resource]
+script = ExtResource("1_155pv")
+NumberOfSlots = 36

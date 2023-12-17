@@ -8,6 +8,8 @@ public partial class Player : CharacterBody3D {
 	
 	[Export(PropertyHint.ResourceType, "Attributes")]
 	public Attributes PlayerAttributes { get; set; }
+	[Export(PropertyHint.ResourceType, "Inventory")]
+	public Inventory PlayerInventory { get; set; }
 	[Export]
 	public RayCast3D Pointer { get; set; }
 	[Export]
