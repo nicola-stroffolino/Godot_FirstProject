@@ -11,21 +11,22 @@ public partial class Player : CharacterBody3D {
 	[Export]
 	public RayCast3D Pointer { get; set; }
 	[Export]
-	public Array<Marker3D> AnchorsArray { get; set; } = new() { null, null, null, null };
+	public Array<NodePath> AnchorsPathArray { get; set; }
 
-
+	public Array<Marker3D> AnchorsArray { get; set; } = new();
 	public Dictionary<string, Marker3D> AnchorDictionary { get; set; } = new();
 
 	public override void _Ready() {
-		GD.Print(AnchorsArray.Count);
+		foreach (var anchor in AnchorsPathArray) {
+			AnchorsArray.Add(GetNode<Marker3D>(anchor));
+		}
+
 		foreach (var anchor in AnchorsArray) {
 			AnchorDictionary.Add(anchor.Name, anchor);
-			GD.Print(anchor.Name + ", " + AnchorDictionary[anchor.Name]);
 		}
 	}
 
 	public override void _PhysicsProcess(double delta) {
-		GD.Print(AnchorsArray.Count);
 		if (Pointer.IsColliding() && Input.IsActionJustPressed("pickup_item")) {
 			if (Pointer.GetCollider() is StaticBody3D item) {
 				GD.Print(item.GetParent().Name + " - " + (item.GetParent() is Weapon));
@@ -45,9 +46,14 @@ public partial class Player : CharacterBody3D {
 	public void PickupItem(Node item) {
 		if (item is not Weapon w) return;
 		
+		var new_w = (Weapon) w.Duplicate();
+		new_w.Position = Vector3.Zero;
+		new_w.Rotation = Vector3.Zero;
+		new_w.Scale = new Vector3(1, 1, 1);
+
 		switch (w.Name) {
 			case "excalibur_morgan":
-				AnchorDictionary["em_position"].AddChild(w);
+				AnchorDictionary["em_position"].AddChild(new_w);
 				break;
 			default:
 				break;

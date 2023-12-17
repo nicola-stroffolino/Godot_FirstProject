@@ -47,9 +47,8 @@ shape = SubResource("1")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("2")
 
-[node name="Player" parent="." node_paths=PackedStringArray("AnchorsArray") instance=ExtResource("2_tsvnn")]
+[node name="Player" parent="." instance=ExtResource("2_tsvnn")]
 collision_mask = 3
-AnchorsArray = [null, null, null, null]
 
 [node name="Enemy Test Dummy" parent="." instance=ExtResource("4_aptte")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.530163, 5)
