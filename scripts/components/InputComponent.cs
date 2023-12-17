@@ -13,10 +13,6 @@ public partial class InputComponent : Node {
 	[Signal]
 	public delegate void JumpStatusEventHandler();
 	[Signal]
-	public delegate void BuildingModeStatusEventHandler();
-	[Signal]
-	public delegate void ScrollStatusEventHandler(char direction);
-	[Signal]
 	public delegate void LeftClickEventHandler();
 	[Signal]
 	public delegate void BasicAttackEventHandler();
@@ -33,18 +29,17 @@ public partial class InputComponent : Node {
 		EmitSignal(SignalName.StrafeStatus, Direction);
 		EmitSignal(SignalName.SprintStatus, Input.IsActionPressed("sprint"));
 		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.JumpStatus);
-		if (Input.IsActionJustPressed("building_mode")) EmitSignal(SignalName.BuildingModeStatus);
 		if (Input.IsActionJustPressed("basic_attack")) EmitSignal(SignalName.BasicAttack);
 		if (Input.IsActionJustPressed("left_click")) EmitSignal(SignalName.LeftClick);
-		if (Input.IsActionJustPressed("equip_weapon")) EmitSignal(SignalName.EquipWeapon);
+		// if (Input.IsActionJustPressed("equip_weapon")) EmitSignal(SignalName.EquipWeapon);
 	}
 	
 	public override void _Input(InputEvent @event) {
 		if (@event is InputEventMouseMotion m) EmitSignal(SignalName.CameraStatus, m);
-		if (@event is InputEventKey || @event is InputEventMouseButton){
-			if (@event.IsActionPressed("next_building")) EmitSignal(SignalName.ScrollStatus, 'u');
-			if (@event.IsActionPressed("previous_building")) EmitSignal(SignalName.ScrollStatus, 'd');
-		}
+//		if (@event is InputEventKey || @event is InputEventMouseButton){
+//			if (@event.IsActionPressed("next_building")) EmitSignal(SignalName.ScrollStatus, 'u');
+//			if (@event.IsActionPressed("previous_building")) EmitSignal(SignalName.ScrollStatus, 'd');
+//		}	
 	}
 	
 	public override void _UnhandledInput(InputEvent @event) {

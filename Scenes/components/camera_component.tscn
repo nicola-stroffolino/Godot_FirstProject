@@ -22,7 +22,3 @@ spring_length = 4.0
 [node name="Camera3D" type="Camera3D" parent="Horizontal/Vertical/SpringArm3D"]
 process_mode = 1
 transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 7.10543e-15, 0, 1, 4.37113e-07, 0, 4)
-
-[node name="RayCast3D" type="RayCast3D" parent="Horizontal/Vertical"]
-transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
-collide_with_areas = true

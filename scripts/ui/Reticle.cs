@@ -7,11 +7,14 @@ public partial class Reticle : CenterContainer {
 	[Export]
 	public Color DotColor { get; set; } = new Color(1, 1, 1);
 
+	CenterContainer c;
+
 	public override void _Ready() {
-		QueueRedraw();
+		c = GetNode<CenterContainer>("Center");
+		c.QueueRedraw();
 	}
 
 	public override void _Draw() {
-		DrawCircle(new Vector2(0, 0), DotRadius, DotColor);
+		c.DrawCircle(new Vector2(0, 0), DotRadius, DotColor);
 	}
 }
