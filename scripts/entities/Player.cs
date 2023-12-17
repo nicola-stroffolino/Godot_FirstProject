@@ -1,36 +1,34 @@
 using System;
 using Godot;
+using Godot.Collections;
 
 public partial class Player : CharacterBody3D {
 	[Signal]
 	public delegate void SpreadDamageEventHandler(double amount);
+	
+	[Export(PropertyHint.ResourceType, "Attributes")]
+	public Attributes PlayerAttributes { get; set; }
 
-	[Export]
-	public WeaponLoadout WeaponLoadout { get; set; }
-	[Export]
-	public PackedScene Weapon { get; set; }
-
-	public bool IsInBuildingMode { get; set; } = false;
-	private Node3D Scene;
+	public Array<Weapon> WeaponLoadout { get; set; } = new ();
 
 	public override void _Ready() {
-		Scene = GetNode<Node3D>("..");
+		
 	}
 
-	public void DisposeStructure(MeshInstance3D structure) {
-		structure.QueueFree();
+	public override void _PhysicsProcess(double delta) {
+		var spaceState = GetWorld3D().DirectSpaceState;
+
+		// var query = PhysicsRayQueryParameters3D.Create();
+		// var result = spaceState.IntersectRay();
+
 	}
 
-	public void InstantiateStructure(MeshInstance3D structure) {
-		Scene.AddChild(structure);
+	public void PushWeapon(Weapon weapon) {
+		WeaponLoadout.Add(weapon);	
 	}
 	
 	public void Attack(double damage) {
 		EmitSignal(SignalName.SpreadDamage, damage);
-	}
-
-	private void EquipWeapon() {
-		
 	}
 }
 

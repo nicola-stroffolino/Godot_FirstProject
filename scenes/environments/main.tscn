@@ -1,9 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2kkwf263txv2"]
+[gd_scene load_steps=13 format=3 uid="uid://c2kkwf263txv2"]
 
 [ext_resource type="Script" path="res://scripts/environments/Main.cs" id="1_80mdh"]
 [ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://scenes/entities/player.tscn" id="2_tsvnn"]
 [ext_resource type="Material" path="res://assets/materials/Alpha_Joints_MAT.material" id="3_ppagt"]
 [ext_resource type="PackedScene" uid="uid://be1hv0dbrmeia" path="res://scenes/entities/test_dummy.tscn" id="4_aptte"]
+[ext_resource type="PackedScene" uid="uid://cuybxv02s1gad" path="res://scenes/weapons/excalibur_morgan.tscn" id="5_5v453"]
+[ext_resource type="PackedScene" uid="uid://b17gpcj5iad70" path="res://scenes/weapons/gae_bolg.tscn" id="6_s782g"]
+[ext_resource type="PackedScene" uid="uid://bu55pidq4u1mh" path="res://scenes/weapons/sword_of_rupture_ea.tscn" id="7_k6j1c"]
+[ext_resource type="PackedScene" uid="uid://b013cnssnuc5q" path="res://scenes/weapons/kanshou_and_bakuya.tscn" id="8_ofcoo"]
 
 [sub_resource type="Sky" id="Sky_5h0ts"]
 
@@ -32,8 +36,6 @@ light_energy = 1.397
 shadow_enabled = true
 sky_mode = 1
 
-[node name="Player" parent="." instance=ExtResource("2_tsvnn")]
-
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 collision_layer = 3
@@ -44,7 +46,21 @@ shape = SubResource("1")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("2")
 
+[node name="Player" parent="." instance=ExtResource("2_tsvnn")]
+
 [node name="Enemy Test Dummy" parent="." instance=ExtResource("4_aptte")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.530163, 5)
+
+[node name="excalibur_morgan" parent="." instance=ExtResource("5_5v453")]
+transform = Transform3D(-0.00546162, 0.00761511, -0.00349009, -0.00833466, -0.00535738, 0.00135347, -0.000839094, 0.00364809, 0.00927293, 2, 2, 1)
+
+[node name="gae_bolg" parent="." instance=ExtResource("6_s782g")]
+transform = Transform3D(0, 0.135, 0, -0.135, 0, 0, 0, 0, 0.135, 1, 1, 2)
+
+[node name="sword_of_rupture_ea" parent="." instance=ExtResource("7_k6j1c")]
+transform = Transform3D(-5.24537e-09, -0.12, 0, 0.12, -5.24537e-09, 0, 0, 0, 0.12, 3.09964, 1.5, 0.319731)
+
+[node name="kanshou_and_bakuya" parent="." instance=ExtResource("8_ofcoo")]
+transform = Transform3D(0.065, 0, 0, 0, -2.84124e-09, -0.065, 0, 0.065, -2.84124e-09, 3, 1, -1)
 
 [connection signal="SpreadDamage" from="Player" to="Enemy Test Dummy" method="TakeDamage"]

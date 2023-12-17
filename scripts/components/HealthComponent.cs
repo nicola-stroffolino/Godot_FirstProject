@@ -14,7 +14,6 @@ public partial class HealthComponent : Node3D {
 		
 		Health = MaxHealth;
 		Healthbar.Value = 1;
-		GD.Print(Healthbar.TintProgress);
 	}
 
 	public void TakeDamage(double amount) {
