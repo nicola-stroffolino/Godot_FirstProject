@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1_155pv")
-NumberOfSlots = 36
+Items = Array[Object]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])

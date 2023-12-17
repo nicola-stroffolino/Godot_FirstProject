@@ -2,23 +2,24 @@ using Godot;
 using Godot.Collections;
 using System;
 
-[GlobalClass, Tool]
+[GlobalClass]
 public partial class Inventory : Resource {
-	[Export(PropertyHint.Range, "0,90,")]
-	public int NumberOfSlots { get; set; }
 	[Export]
 	public Array<Item> Items { get; set; }
 
-
-	public void SetItem() {
-
+	public Item SetItem(int itemIndex, Item item) {
+		var previousItem = Items[itemIndex];
+		Items[itemIndex] = item;
+		return previousItem;
 	}
 
-	public void RemoveItem() {
-
+	public Item RemoveItem(int itemIndex) {
+		var previousItem = Items[itemIndex];
+		Items[itemIndex] = null;
+		return previousItem;
 	}
 
-	public void SwapItems() {
-
+	public void SwapItems(int fromItemIndex, int toItemIndex) {
+		(Items[toItemIndex], Items[fromItemIndex]) = (Items[fromItemIndex], Items[toItemIndex]);
 	}
 }

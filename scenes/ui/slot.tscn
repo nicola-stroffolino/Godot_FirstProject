@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://lgf423sdc8di"]
+
+[ext_resource type="Texture2D" uid="uid://bpjcykt7m0ik2" path="res://icon.png" id="1_cddip"]
+
+[node name="Slot" type="CenterContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+texture = ExtResource("1_cddip")
