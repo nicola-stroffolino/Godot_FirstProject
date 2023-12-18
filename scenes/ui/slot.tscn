@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://lgf423sdc8di"]
 
 [ext_resource type="Script" path="res://scripts/ui/ItemSlot.cs" id="1_7pfjp"]
-[ext_resource type="Texture2D" uid="uid://bpjcykt7m0ik2" path="res://icon.png" id="1_cddip"]
+[ext_resource type="Texture2D" uid="uid://dnsrva56riswd" path="res://assets/textures/empty_slot.png" id="2_hlxny"]
 
 [node name="Slot" type="CenterContainer"]
 script = ExtResource("1_7pfjp")
@@ -9,4 +9,4 @@ script = ExtResource("1_7pfjp")
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
-texture = ExtResource("1_cddip")
+texture = ExtResource("2_hlxny")

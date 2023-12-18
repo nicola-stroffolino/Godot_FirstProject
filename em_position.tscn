@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3]
-
-[ext_resource type="PackedScene" path="res://scenes/weapons/excalibur_morgan.tscn" id="1_si576"]
-
-[node name="em_position" type="Marker3D"]
-transform = Transform3D(0.323449, 0.443289, -0.299166, -0.179217, -0.239565, -0.548739, -0.503872, 0.369768, 0.00313259, -3.558, 7.316, -47.987)
-
-[node name="excalibur_morgan" parent="." instance=ExtResource("1_si576")]
-transform = Transform3D(-0.00802213, 0.00883957, -0.00514854, -0.0101217, -0.00780711, 0.0023668, -0.00148259, 0.00546911, 0.0117, -8.03021, -5.15997, 7.76205)
