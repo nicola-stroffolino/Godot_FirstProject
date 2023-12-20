@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=5 format=3 uid="uid://bkok6taoybefy"]
+
+[ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_uyy4w"]
+[ext_resource type="PackedScene" uid="uid://bu55pidq4u1mh" path="res://Scenes/weapons/sword_of_rupture_ea.tscn" id="1_yidkw"]
+[ext_resource type="Script" path="res://scripts/resources/WeaponItem.cs" id="3_dkwxf"]
+
+[sub_resource type="Resource" id="Resource_50f5t"]
+script = ExtResource("1_uyy4w")
+Damage = 180.0
+Range = 1
+
+[resource]
+script = ExtResource("3_dkwxf")
+WeaponStats = SubResource("Resource_50f5t")
+Name = "Sword of Rupture Ea"
+Model = ExtResource("1_yidkw")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=5 format=3 uid="uid://bkivod38naiie"]
+
+[ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_i2glr"]
+[ext_resource type="PackedScene" uid="uid://b013cnssnuc5q" path="res://Scenes/weapons/kanshou_and_bakuya.tscn" id="1_tngqm"]
+[ext_resource type="Script" path="res://scripts/resources/WeaponItem.cs" id="3_s6me2"]
+
+[sub_resource type="Resource" id="Resource_4sumc"]
+script = ExtResource("1_i2glr")
+Damage = 40.0
+Range = 0
+
+[resource]
+script = ExtResource("3_s6me2")
+WeaponStats = SubResource("Resource_4sumc")
+Name = "Kanshou and Bakuya"
+Model = ExtResource("1_tngqm")

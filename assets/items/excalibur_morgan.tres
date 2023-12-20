@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=6 format=3 uid="uid://dr7ledwepetb8"]
+
+[ext_resource type="PackedScene" uid="uid://cuybxv02s1gad" path="res://Scenes/weapons/excalibur_morgan.tscn" id="1_dqae2"]
+[ext_resource type="Script" path="res://scripts/resources/WeaponItem.cs" id="1_qkna1"]
+[ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="2_586m1"]
+[ext_resource type="Texture2D" uid="uid://dabbre1l5ywxm" path="res://assets/models/weapons/excalibur_morgan_2.png" id="2_uqphc"]
+
+[sub_resource type="Resource" id="Resource_46cfd"]
+script = ExtResource("2_586m1")
+Damage = 100.0
+Range = 1
+
+[resource]
+script = ExtResource("1_qkna1")
+WeaponStats = SubResource("Resource_46cfd")
+Name = "Excalibur Morgan"
+Texture = ExtResource("2_uqphc")
+Model = ExtResource("1_dqae2")

@@ -5,13 +5,14 @@ public partial class ItemSlot : CenterContainer {
 	[Export(PropertyHint.Enum, "Item,Weapon")]
 	public int ItemType { get; set; }
 	
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public TextureRect Display { get; set; }
+
+	public override void _Ready() {
+		Display = GetNode<TextureRect>("TextureRect/TextureRect");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+	public void DisplayItem(Texture2D texture) {
+		if (texture != null) Display.Texture = texture;
+		else Display.Texture = null;
 	}
 }

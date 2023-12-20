@@ -1,8 +1,6 @@
-[gd_scene load_steps=54 format=3 uid="uid://bu55pidq4u1mh"]
+[gd_scene load_steps=52 format=3 uid="uid://bu55pidq4u1mh"]
 
 [ext_resource type="Texture2D" uid="uid://2mwpvj1en1m5" path="res://assets/models/weapons/sword_of_rupture_enuma_elish_ea_0.png" id="1_ferv3"]
-[ext_resource type="Script" path="res://scripts/weapons/SwordOfRuptureEa.cs" id="1_subba"]
-[ext_resource type="Resource" uid="uid://d4jr0j8cbss05" path="res://resources/weapons/sword_of_rupture_ea.tres" id="2_abve8"]
 [ext_resource type="Texture2D" uid="uid://b71wgkw2g2scc" path="res://assets/models/weapons/sword_of_rupture_enuma_elish_ea_1.png" id="2_ybd1r"]
 [ext_resource type="Texture2D" uid="uid://dbbm4sy1clmhh" path="res://assets/models/weapons/sword_of_rupture_enuma_elish_ea_2.png" id="3_edhod"]
 [ext_resource type="Texture2D" uid="uid://bb06rh3lrh614" path="res://assets/models/weapons/sword_of_rupture_enuma_elish_ea_3.png" id="4_q3wbg"]
@@ -442,8 +440,6 @@ _data = {
 }
 
 [node name="sword_of_rupture_ea" type="Node3D"]
-script = ExtResource("1_subba")
-StatsResource = ExtResource("2_abve8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 4

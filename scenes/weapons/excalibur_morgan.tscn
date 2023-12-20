@@ -1,8 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://cuybxv02s1gad"]
+[gd_scene load_steps=11 format=3 uid="uid://cuybxv02s1gad"]
 
-[ext_resource type="Script" path="res://scripts/weapons/ExcaliburMorgan.cs" id="1_4xuda"]
 [ext_resource type="Texture2D" uid="uid://cpa55pes1garw" path="res://assets/models/weapons/excalibur_morgan_0.png" id="2_e066b"]
-[ext_resource type="Resource" uid="uid://6o082b3vvhww" path="res://resources/weapons/excalibur_morgan.tres" id="2_hcsgf"]
 [ext_resource type="Texture2D" uid="uid://dm1awiv6l0tfq" path="res://assets/models/weapons/excalibur_morgan_1.png" id="3_4acrv"]
 [ext_resource type="Texture2D" uid="uid://dabbre1l5ywxm" path="res://assets/models/weapons/excalibur_morgan_2.png" id="4_nj46h"]
 [ext_resource type="Texture2D" uid="uid://cufnjhsjd1ciy" path="res://assets/models/weapons/excalibur_morgan_3.png" id="5_red8v"]
@@ -68,8 +66,6 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_w0ta1")
 
 [node name="excalibur_morgan" type="Node3D"]
-script = ExtResource("1_4xuda")
-StatsResource = ExtResource("2_hcsgf")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(0.0974413, -0.548099, 0.830718, -0.351705, 0.76187, 0.543928, -0.931026, -0.345169, -0.118532, -82.9368, 46.2161, 12.6883)
