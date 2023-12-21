@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=4 format=3 uid="uid://dmqmq3dpl7gej"]
+[gd_resource type="Resource" script_class="Inventory" load_steps=6 format=3 uid="uid://dmqmq3dpl7gej"]
 
 [ext_resource type="Script" path="res://scripts/resources/Inventory.cs" id="1_155pv"]
 [ext_resource type="Resource" uid="uid://dr7ledwepetb8" path="res://assets/items/excalibur_morgan.tres" id="1_pxi5g"]
 [ext_resource type="Resource" uid="uid://dpws5d2jgan7f" path="res://assets/items/gae_bolg.tres" id="2_rd5y2"]
+[ext_resource type="Resource" uid="uid://bkivod38naiie" path="res://assets/items/kanshou_and_bakuya.tres" id="3_67642"]
+[ext_resource type="Resource" uid="uid://bkok6taoybefy" path="res://assets/items/sword_of_rupture_ea.tres" id="4_73p6u"]
 
 [resource]
 script = ExtResource("1_155pv")
-Items = Array[Object]([ExtResource("1_pxi5g"), null, null, ExtResource("2_rd5y2"), null, null, null, null, null])
+Items = Array[Object]([ExtResource("1_pxi5g"), ExtResource("2_rd5y2"), ExtResource("3_67642"), ExtResource("4_73p6u"), null, null, null, null, null])

@@ -8,23 +8,44 @@ public partial class InventoryContainer : GridContainer
 	// public PackedScene Slot { get; set; }
 	
 	public Inventory PlayerInventory { get; set; }
-	public Array<CenterContainer> Slots { get; set; } = new();
+	public Array<InventorySlot> Slots { get; set; } = new();
 	
 	public override void _Ready() {
 		PlayerInventory = GetTree().Root.GetChild(0).GetNode<Player>("Player").PlayerInventory;
 		foreach (var item in GetNode<GridContainer>("InventorySlots").GetChildren()) {
-			Slots.Add((CenterContainer) item);
+			Slots.Add((InventorySlot) item);
 		}
-		DisplayInventorySlots();
+
+		UpdateInventoryDisplay(PlayerInventory);
 	}
 	
 	public void DisplayInventorySlots() {
 		foreach (var item in Slots) {
-			if (item is ItemSlot i) {
+			if (item is InventorySlot i) {
 				if (PlayerInventory.Items[Slots.IndexOf(item)] != null) {
-					i.DisplayItem((Texture2D) PlayerInventory.Items[Slots.IndexOf(item)].Texture);
+					i.DisplayItem(PlayerInventory.Items[Slots.IndexOf(item)]);
 				}
 			}
+		}
+	}
+
+	// Specified paramether so that the function can be called
+	// with other inventory segments
+	public void UpdateInventoryDisplay(Inventory inventory) {
+		for (int i = 0; i < inventory.Items.Count; i++) {
+			UpdateInventorySlotDisplay(i);
+		}
+	}
+
+	public void UpdateInventorySlotDisplay(int itemIndex) {
+		var slot = Slots[itemIndex];
+		var item = PlayerInventory.Items[itemIndex];
+		slot.DisplayItem(item);
+	}
+
+	public void OnItemsChanged(int[] indexes) {
+		for (int i = 0; i < indexes.Length; i++) {
+			UpdateInventorySlotDisplay(indexes[i]);
 		}
 	}
 }
