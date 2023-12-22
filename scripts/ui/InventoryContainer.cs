@@ -11,12 +11,26 @@ public partial class InventoryContainer : GridContainer
 	public Array<InventorySlot> Slots { get; set; } = new();
 	
 	public override void _Ready() {
+		Visible = false;
+		
 		PlayerInventory = GetTree().Root.GetChild(0).GetNode<Player>("Player").PlayerInventory;
 		foreach (var item in GetNode<GridContainer>("InventorySlots").GetChildren()) {
 			Slots.Add((InventorySlot) item);
 		}
-
+		
 		UpdateInventoryDisplay(PlayerInventory);
+	}
+	
+	private int inv = 0;
+	public void OpenInventory() {
+		inv = 1 ^ inv;
+		if (inv == 1) {
+			Visible = true;
+			Input.MouseMode = Input.MouseModeEnum.Visible;
+		} else {
+			Visible = false;
+			Input.MouseMode = Input.MouseModeEnum.Captured;
+		}
 	}
 	
 	public void DisplayInventorySlots() {
