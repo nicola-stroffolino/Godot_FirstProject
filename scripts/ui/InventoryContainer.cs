@@ -9,6 +9,7 @@ public partial class InventoryContainer : GridContainer
 	
 	public Inventory PlayerInventory { get; set; }
 	public Array<InventorySlot> Slots { get; set; } = new();
+	public Item FloatingItem { get; set; }
 	
 	public override void _Ready() {
 		Visible = false;
@@ -20,7 +21,11 @@ public partial class InventoryContainer : GridContainer
 		
 		UpdateInventoryDisplay(PlayerInventory);
 	}
-	
+
+	public override void _Process(double delta) {
+		if (FloatingItem != null) GD.Print(FloatingItem.Name);
+	}
+
 	private int inv = 0;
 	public void OpenInventory() {
 		inv = 1 ^ inv;

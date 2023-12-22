@@ -11,6 +11,7 @@ public partial class InventorySlot : CenterContainer {
 	public override void _Ready() {
 		PlayerInventory = GetTree().Root.GetChild(0).GetNode<Player>("Player").PlayerInventory;
 		Display = GetNode<TextureRect>("Background/Display");
+		AttachCallback(this);
 	}
 
 	public void DisplayItem(Item item) {
@@ -34,15 +35,30 @@ public partial class InventorySlot : CenterContainer {
 		base._DropData(atPosition, data);
 	}
 
-	// Mouse Click Handler
+	// Mouse Click Handler "stroffo gay";
 	public void AttachCallback(Node node) {
 		if (node is Control) {
 			var cb = new Callable(node, "Handler");
-		
+			
 		}
 	}
 
 	public void Handler(InputEvent what, Node who) {
 		GD.Print(what, who);
+	}
+
+	public override void _GuiInput(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mb)
+		{
+			if (mb.ButtonIndex == MouseButton.Left && mb.Pressed)
+			{
+				var i = GetNode<GridContainer>("..").GetChildren().IndexOf(this);
+				var item = PlayerInventory.Items[i];
+				
+				var container = (InventoryContainer) GetNode<GridContainer>("../..");
+				container.FloatingItem = item;
+			}
+		}
 	}
 }
