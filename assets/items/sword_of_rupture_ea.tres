@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="WeaponItem" load_steps=6 format=3 uid="uid://bkok6taoybefy"]
+[gd_resource type="Resource" script_class="Weapon_ItemData" load_steps=6 format=3 uid="uid://bkok6taoybefy"]
 
 [ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_uyy4w"]
-[ext_resource type="PackedScene" uid="uid://bu55pidq4u1mh" path="res://Scenes/weapons/sword_of_rupture_ea.tscn" id="1_yidkw"]
+[ext_resource type="PackedScene" uid="uid://bu55pidq4u1mh" path="res://scenes/weapons/sword_of_rupture_ea.tscn" id="1_yidkw"]
 [ext_resource type="Texture2D" uid="uid://dighfw2dhpqno" path="res://assets/models/weapons/sword_of_rupture_enuma_elish_ea_4.png" id="2_sy6yq"]
-[ext_resource type="Script" path="res://scripts/resources/WeaponItem.cs" id="3_dkwxf"]
+[ext_resource type="Script" path="res://scripts/resources/Weapon_ItemData.cs" id="4_kxka7"]
 
 [sub_resource type="Resource" id="Resource_50f5t"]
 script = ExtResource("1_uyy4w")
@@ -11,8 +11,9 @@ Damage = 180.0
 Range = 1
 
 [resource]
-script = ExtResource("3_dkwxf")
+script = ExtResource("4_kxka7")
 WeaponStats = SubResource("Resource_50f5t")
 Name = "Sword of Rupture Ea"
 Texture = ExtResource("2_sy6yq")
 Model = ExtResource("1_yidkw")
+Stackable = false

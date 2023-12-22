@@ -1,11 +1,32 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=6 format=3 uid="uid://dmqmq3dpl7gej"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=11 format=3 uid="uid://dmqmq3dpl7gej"]
 
-[ext_resource type="Script" path="res://scripts/resources/Inventory.cs" id="1_155pv"]
-[ext_resource type="Resource" uid="uid://dr7ledwepetb8" path="res://assets/items/excalibur_morgan.tres" id="1_pxi5g"]
-[ext_resource type="Resource" uid="uid://dpws5d2jgan7f" path="res://assets/items/gae_bolg.tres" id="2_rd5y2"]
-[ext_resource type="Resource" uid="uid://bkivod38naiie" path="res://assets/items/kanshou_and_bakuya.tres" id="3_67642"]
-[ext_resource type="Resource" uid="uid://bkok6taoybefy" path="res://assets/items/sword_of_rupture_ea.tres" id="4_73p6u"]
+[ext_resource type="Resource" uid="uid://dr7ledwepetb8" path="res://assets/items/excalibur_morgan.tres" id="1_jsiqu"]
+[ext_resource type="Script" path="res://scripts/resources/SlotData.cs" id="1_l02wu"]
+[ext_resource type="Resource" uid="uid://dpws5d2jgan7f" path="res://assets/items/gae_bolg.tres" id="3_8vvg3"]
+[ext_resource type="Resource" uid="uid://bkivod38naiie" path="res://assets/items/kanshou_and_bakuya.tres" id="4_ri4va"]
+[ext_resource type="Resource" uid="uid://bkok6taoybefy" path="res://assets/items/sword_of_rupture_ea.tres" id="5_5n1em"]
+[ext_resource type="Script" path="res://scripts/resources/InventoryData.cs" id="5_htd11"]
+
+[sub_resource type="Resource" id="Resource_3vblg"]
+script = ExtResource("1_l02wu")
+ItemData = ExtResource("1_jsiqu")
+Quantity = 1
+
+[sub_resource type="Resource" id="Resource_twvp1"]
+script = ExtResource("1_l02wu")
+ItemData = ExtResource("3_8vvg3")
+Quantity = 1
+
+[sub_resource type="Resource" id="Resource_35ek6"]
+script = ExtResource("1_l02wu")
+ItemData = ExtResource("4_ri4va")
+Quantity = 1
+
+[sub_resource type="Resource" id="Resource_we2oa"]
+script = ExtResource("1_l02wu")
+ItemData = ExtResource("5_5n1em")
+Quantity = 1
 
 [resource]
-script = ExtResource("1_155pv")
-Items = Array[Object]([ExtResource("1_pxi5g"), ExtResource("2_rd5y2"), ExtResource("3_67642"), ExtResource("4_73p6u"), null, null, null, null, null])
+script = ExtResource("5_htd11")
+SlotDatas = Array[Object]([SubResource("Resource_3vblg"), SubResource("Resource_twvp1"), SubResource("Resource_35ek6"), SubResource("Resource_we2oa"), null, null, null, null, null, null, null, null, null, null, null, null, null, null])

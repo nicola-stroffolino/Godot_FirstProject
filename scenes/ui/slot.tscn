@@ -1,15 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://lgf423sdc8di"]
 
-[ext_resource type="Script" path="res://scripts/ui/InventorySlot.cs" id="1_cjkcp"]
+[ext_resource type="Script" path="res://scripts/ui/Slot.cs" id="1_j0klq"]
 [ext_resource type="Texture2D" uid="uid://dnsrva56riswd" path="res://assets/textures/empty_slot.png" id="2_hlxny"]
 
-[node name="Slot" type="CenterContainer"]
-script = ExtResource("1_cjkcp")
+[node name="Slot" type="PanelContainer"]
+custom_minimum_size = Vector2(64, 64)
+script = ExtResource("1_j0klq")
 
 [node name="Background" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 texture = ExtResource("2_hlxny")
+expand_mode = 1
 
 [node name="Display" type="TextureRect" parent="Background"]
 custom_minimum_size = Vector2(18, 18)
@@ -19,10 +21,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -57.0
-offset_top = -57.0
-offset_right = 57.0
-offset_bottom = 57.0
+offset_left = -29.0
+offset_top = -29.0
+offset_right = 29.0
+offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
+
+[node name="Count" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
