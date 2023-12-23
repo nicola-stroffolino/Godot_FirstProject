@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon_ItemData" load_steps=6 format=3 uid="uid://bkivod38naiie"]
 
 [ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_i2glr"]
-[ext_resource type="PackedScene" uid="uid://b013cnssnuc5q" path="res://scenes/weapons/kanshou_and_bakuya.tscn" id="1_tngqm"]
+[ext_resource type="PackedScene" uid="uid://b013cnssnuc5q" path="res://Scenes/weapons/kanshou_and_bakuya.tscn" id="1_tngqm"]
 [ext_resource type="Texture2D" uid="uid://cb6ycuasdlq2v" path="res://assets/models/weapons/kanshou_and_bakuya_0.png" id="2_tm1nf"]
 [ext_resource type="Script" path="res://scripts/resources/Weapon_ItemData.cs" id="4_f3y1j"]
 

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=11 format=3 uid="uid://dmqmq3dpl7gej"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=13 format=3 uid="uid://dmqmq3dpl7gej"]
 
 [ext_resource type="Resource" uid="uid://dr7ledwepetb8" path="res://assets/items/excalibur_morgan.tres" id="1_jsiqu"]
 [ext_resource type="Script" path="res://scripts/resources/SlotData.cs" id="1_l02wu"]
@@ -27,6 +27,16 @@ script = ExtResource("1_l02wu")
 ItemData = ExtResource("5_5n1em")
 Quantity = 1
 
+[sub_resource type="Resource" id="Resource_tb7p8"]
+script = ExtResource("1_l02wu")
+ItemData = ExtResource("5_5n1em")
+Quantity = 1
+
+[sub_resource type="Resource" id="Resource_sv4hd"]
+script = ExtResource("1_l02wu")
+ItemData = ExtResource("4_ri4va")
+Quantity = 1
+
 [resource]
 script = ExtResource("5_htd11")
-SlotDatas = Array[Object]([SubResource("Resource_3vblg"), SubResource("Resource_twvp1"), SubResource("Resource_35ek6"), SubResource("Resource_we2oa"), null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+SlotDatas = Array[Object]([SubResource("Resource_3vblg"), SubResource("Resource_twvp1"), SubResource("Resource_35ek6"), SubResource("Resource_we2oa"), SubResource("Resource_tb7p8"), SubResource("Resource_sv4hd"), null, null, null, null, null, null, null, null, null, null, null, null])

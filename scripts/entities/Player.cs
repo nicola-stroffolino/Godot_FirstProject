@@ -9,7 +9,7 @@ public partial class Player : CharacterBody3D {
 	[Export(PropertyHint.ResourceType, "Attributes")]
 	public Attributes PlayerAttributes { get; set; }
 	[Export(PropertyHint.ResourceType, "Inventory")]
-	public InventoryData PlayerInventory { get; set; }
+	public InventoryData InventoryData { get; set; }
 	
 	[Export]
 	public RayCast3D Pointer { get; set; }
@@ -34,6 +34,7 @@ public partial class Player : CharacterBody3D {
 			if (Pointer.GetCollider() is StaticBody3D item) {
 				GD.Print(item.GetParent().Name + " - " + (item.GetParent() is Weapon));
 				PickupItem(item.GetParent());
+				GetTree().Quit();
 			}
 		};
 	}
