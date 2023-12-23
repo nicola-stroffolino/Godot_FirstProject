@@ -11,18 +11,20 @@ public partial class Inventory : PanelContainer {
 		var InventoryData = ResourceLoader.Load<InventoryData>("res://resources/player_inventory.tres");
 	}
 	
-	public void SetInventoryData(InventoryData InventoryData) {
-		PopulateItemGrid(InventoryData.SlotDatas);
+	public void SetInventoryData(InventoryData inventoryData) {
+		PopulateItemGrid(inventoryData);
 	}
 	
-	public void PopulateItemGrid(Array<SlotData> slotDatas) {
+	public void PopulateItemGrid(InventoryData inventoryData) {
 		foreach (var child in ItemGrid.GetChildren()) {
 			child.QueueFree();
 		}
 
-		foreach (var slotData in slotDatas) {
-			var slot = SlotScene.Instantiate();
+		foreach (var slotData in inventoryData.SlotDatas) {
+			var slot = (Slot) SlotScene.Instantiate();
 			ItemGrid.AddChild(slot);
+
+			//slot.Connect("SlotClicked", this);
 
 			if (slotData != null) {
 				(slot as Slot).SetSlotData(slotData);

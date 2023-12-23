@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon_ItemData" load_steps=6 format=3 uid="uid://bkok6taoybefy"]
 
 [ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_uyy4w"]
-[ext_resource type="PackedScene" uid="uid://bu55pidq4u1mh" path="res://Scenes/weapons/sword_of_rupture_ea.tscn" id="1_yidkw"]
+[ext_resource type="PackedScene" uid="uid://bu55pidq4u1mh" path="res://scenes/weapons/sword_of_rupture_ea.tscn" id="1_yidkw"]
 [ext_resource type="Texture2D" uid="uid://dighfw2dhpqno" path="res://assets/models/weapons/sword_of_rupture_enuma_elish_ea_4.png" id="2_sy6yq"]
 [ext_resource type="Script" path="res://scripts/resources/Weapon_ItemData.cs" id="4_kxka7"]
 

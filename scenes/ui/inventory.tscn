@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2n7k8fb4lxay"]
+[gd_scene load_steps=3 format=3 uid="uid://c2n7k8fb4lxay"]
 
 [ext_resource type="Script" path="res://scripts/ui/Inventory.cs" id="1_0bfha"]
+[ext_resource type="PackedScene" uid="uid://lgf423sdc8di" path="res://scenes/ui/slot.tscn" id="2_lv60i"]
 
 [node name="Inventory" type="PanelContainer"]
 offset_right = 16.0
@@ -20,3 +21,57 @@ layout_mode = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 6
+
+[node name="Slot" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot2" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot3" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot4" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot5" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot6" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot7" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot8" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot9" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot10" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot11" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot12" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot13" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot14" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot15" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot16" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot17" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot18" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2

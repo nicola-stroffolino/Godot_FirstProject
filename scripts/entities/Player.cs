@@ -5,11 +5,13 @@ using Godot.Collections;
 public partial class Player : CharacterBody3D {
 	[Signal]
 	public delegate void SpreadDamageEventHandler(double amount);
+	[Signal]
+	public delegate void InventoryDataReadyEventHandler(InventoryData inventoryData);
 	
-	[Export(PropertyHint.ResourceType, "Attributes")]
-	public Attributes PlayerAttributes { get; set; }
-	[Export(PropertyHint.ResourceType, "Inventory")]
-	public InventoryData InventoryData { get; set; }
+	[Export]
+	public Attributes _Attributes { get; set; }
+	[Export]
+	public InventoryData _InventoryData { get; set; }
 	
 	[Export]
 	public RayCast3D Pointer { get; set; }
@@ -27,6 +29,9 @@ public partial class Player : CharacterBody3D {
 		foreach (var anchor in AnchorsArray) {
 			AnchorDictionary.Add(anchor.Name, anchor);
 		}
+
+		// if (InventoryData != null) 
+		EmitSignal(SignalName.InventoryDataReady, _InventoryData);
 	}
 
 	public override void _PhysicsProcess(double delta) {

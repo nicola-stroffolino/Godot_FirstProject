@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon_ItemData" load_steps=6 format=3 uid="uid://dpws5d2jgan7f"]
 
 [ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_2ephd"]
-[ext_resource type="PackedScene" uid="uid://b17gpcj5iad70" path="res://Scenes/weapons/gae_bolg.tscn" id="1_v1frl"]
+[ext_resource type="PackedScene" uid="uid://b17gpcj5iad70" path="res://scenes/weapons/gae_bolg.tscn" id="1_v1frl"]
 [ext_resource type="Texture2D" uid="uid://baxmk1psk47uy" path="res://assets/models/weapons/gae_bolg_0.jpg" id="2_202sr"]
 [ext_resource type="Script" path="res://scripts/resources/Weapon_ItemData.cs" id="4_eenfr"]
 

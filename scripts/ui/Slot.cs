@@ -2,7 +2,9 @@ using Godot;
 using System;
 
 public partial class Slot : PanelContainer {
-	
+	[Signal]
+	public delegate void SlotClickedEventHandler(int index, int button);
+
 	public TextureRect Display { get; set; }
 	public Label Count { get; set; }
 
@@ -14,11 +16,19 @@ public partial class Slot : PanelContainer {
 	public void SetSlotData(SlotData slotData) {
 		var itemData = slotData.ItemData;
 		Display.Texture = itemData.Texture;
-//		TooltipText = $"{itemData.Name} x{slotData.Quantity}";
+		TooltipText = $"{itemData.Name} x{slotData.Quantity}";
 
-//		if (slotData.Quantity > 1) {
-//			Count.Text = "x" + slotData.Quantity;
-//		}
+		if (slotData.Quantity > 1) {
+			Count.Text = "x" + slotData.Quantity;
+		}
+	}
+	
+	private void OnGuiInput(InputEvent @event) {
+		if (@event is not InputEventMouseButton mb) return; 
+		
+		if ((mb.ButtonIndex == MouseButton.Left || mb.ButtonIndex == MouseButton.Right) && mb.Pressed) {
+			EmitSignal(SignalName.SlotClicked, GetIndex(), (int) mb.ButtonIndex);
+		}
 	}
 
 	// [Export(PropertyHint.Enum, "Item,Weapon")]
@@ -81,3 +91,5 @@ public partial class Slot : PanelContainer {
 	// 	}
 	// }
 }
+
+
