@@ -19,7 +19,7 @@ public partial class InputComponent : Node {
 	[Signal]
 	public delegate void EquipWeaponEventHandler();
 	[Signal]
-	public delegate void OpenInventoryEventHandler();
+	public delegate void ToggleInventoryEventHandler();
 	
 	public override void _PhysicsProcess(double delta) {
 		var Direction = new Vector3 {
@@ -34,7 +34,7 @@ public partial class InputComponent : Node {
 		if (Input.IsActionJustPressed("basic_attack")) EmitSignal(SignalName.BasicAttack);
 		if (Input.IsActionJustPressed("left_click")) EmitSignal(SignalName.LeftClick);
 		// if (Input.IsActionJustPressed("equip_weapon")) EmitSignal(SignalName.EquipWeapon);
-		if (Input.IsActionJustPressed("open_inventory")) EmitSignal(SignalName.OpenInventory);
+		if (Input.IsActionJustPressed("toggle_inventory")) EmitSignal(SignalName.ToggleInventory);
 	}
 	
 	public override void _Input(InputEvent @event) {

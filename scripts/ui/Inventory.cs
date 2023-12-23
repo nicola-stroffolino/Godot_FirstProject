@@ -9,9 +9,12 @@ public partial class Inventory : PanelContainer {
 	public override void _Ready() {
 		ItemGrid = GetNode<GridContainer>("MarginContainer/ItemGrid");
 		var InventoryData = ResourceLoader.Load<InventoryData>("res://resources/player_inventory.tres");
+	}
+	
+	public void SetInventoryData(InventoryData InventoryData) {
 		PopulateItemGrid(InventoryData.SlotDatas);
 	}
-
+	
 	public void PopulateItemGrid(Array<SlotData> slotDatas) {
 		foreach (var child in ItemGrid.GetChildren()) {
 			child.QueueFree();
