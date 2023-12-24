@@ -14,7 +14,7 @@ public partial class Player : CharacterBody3D {
 	public InventoryData _InventoryData { get; set; }
 	
 	[Export]
-	public RayCast3D Pointer { get; set; }
+public RayCast3D Pointer { get; set; }
 	[Export]
 	public Array<NodePath> AnchorsPathArray { get; set; }
 
@@ -39,7 +39,6 @@ public partial class Player : CharacterBody3D {
 			if (Pointer.GetCollider() is StaticBody3D item) {
 				GD.Print(item.GetParent().Name + " - " + (item.GetParent() is Weapon));
 				PickupItem(item.GetParent());
-				GetTree().Quit();
 			}
 		};
 	}
@@ -53,14 +52,14 @@ public partial class Player : CharacterBody3D {
 	}
 
 	public void PickupItem(Node item) {
-		if (item is not Weapon w) return;
+		//if (item is not Weapon w) return;
 		
-		var new_w = (Weapon) w.Duplicate();
+		var new_w = (Node3D) item.Duplicate();
 		new_w.Position = Vector3.Zero;
 		new_w.Rotation = Vector3.Zero;
 		new_w.Scale = new Vector3(1, 1, 1);
 
-		switch (w.Name) {
+		switch (item.Name) {
 			case "excalibur_morgan":
 				AnchorDictionary["em_position"].AddChild(new_w);
 				break;

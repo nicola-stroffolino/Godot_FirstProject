@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://k8jk0blvjt3i"]
+
+[ext_resource type="Texture2D" uid="uid://dxkgl2r7rf4he" path="res://assets/textures/Test Textures.png" id="1_0iwbo"]
+[ext_resource type="Script" path="res://scripts/resources/ItemData.cs" id="1_yy356"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6frqi"]
+atlas = ExtResource("1_0iwbo")
+region = Rect2(96, 544, 32, 32)
+
+[resource]
+script = ExtResource("1_yy356")
+Name = "Gold"
+Texture = SubResource("AtlasTexture_6frqi")
+Stackable = true

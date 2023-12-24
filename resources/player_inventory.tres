@@ -1,42 +1,43 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=13 format=3 uid="uid://dmqmq3dpl7gej"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=14 format=3 uid="uid://dmqmq3dpl7gej"]
 
-[ext_resource type="Resource" uid="uid://dr7ledwepetb8" path="res://assets/items/excalibur_morgan.tres" id="1_jsiqu"]
+[ext_resource type="Resource" uid="uid://dr7ledwepetb8" path="res://assets/items/weapons/excalibur_morgan.tres" id="1_0nr4h"]
 [ext_resource type="Script" path="res://scripts/resources/SlotData.cs" id="1_l02wu"]
-[ext_resource type="Resource" uid="uid://dpws5d2jgan7f" path="res://assets/items/gae_bolg.tres" id="3_8vvg3"]
-[ext_resource type="Resource" uid="uid://bkivod38naiie" path="res://assets/items/kanshou_and_bakuya.tres" id="4_ri4va"]
-[ext_resource type="Resource" uid="uid://bkok6taoybefy" path="res://assets/items/sword_of_rupture_ea.tres" id="5_5n1em"]
+[ext_resource type="Resource" uid="uid://dpws5d2jgan7f" path="res://assets/items/weapons/gae_bolg.tres" id="3_wfbg7"]
+[ext_resource type="Resource" uid="uid://bkivod38naiie" path="res://assets/items/weapons/kanshou_and_bakuya.tres" id="4_6wk7l"]
 [ext_resource type="Script" path="res://scripts/resources/InventoryData.cs" id="5_htd11"]
+[ext_resource type="Resource" uid="uid://bkok6taoybefy" path="res://assets/items/weapons/sword_of_rupture_ea.tres" id="5_pb8ru"]
+[ext_resource type="Resource" uid="uid://k8jk0blvjt3i" path="res://assets/items/gold.tres" id="6_r1u7b"]
 
 [sub_resource type="Resource" id="Resource_3vblg"]
 script = ExtResource("1_l02wu")
-ItemData = ExtResource("1_jsiqu")
+ItemData = ExtResource("1_0nr4h")
 Quantity = 1
 
 [sub_resource type="Resource" id="Resource_twvp1"]
 script = ExtResource("1_l02wu")
-ItemData = ExtResource("3_8vvg3")
+ItemData = ExtResource("3_wfbg7")
 Quantity = 1
 
 [sub_resource type="Resource" id="Resource_35ek6"]
 script = ExtResource("1_l02wu")
-ItemData = ExtResource("4_ri4va")
+ItemData = ExtResource("4_6wk7l")
 Quantity = 1
 
 [sub_resource type="Resource" id="Resource_we2oa"]
 script = ExtResource("1_l02wu")
-ItemData = ExtResource("5_5n1em")
+ItemData = ExtResource("5_pb8ru")
 Quantity = 1
 
-[sub_resource type="Resource" id="Resource_tb7p8"]
+[sub_resource type="Resource" id="Resource_t47jg"]
 script = ExtResource("1_l02wu")
-ItemData = ExtResource("5_5n1em")
-Quantity = 1
+ItemData = ExtResource("6_r1u7b")
+Quantity = 60
 
-[sub_resource type="Resource" id="Resource_sv4hd"]
+[sub_resource type="Resource" id="Resource_pigra"]
 script = ExtResource("1_l02wu")
-ItemData = ExtResource("4_ri4va")
-Quantity = 1
+ItemData = ExtResource("6_r1u7b")
+Quantity = 60
 
 [resource]
 script = ExtResource("5_htd11")
-SlotDatas = Array[Object]([SubResource("Resource_3vblg"), SubResource("Resource_twvp1"), SubResource("Resource_35ek6"), SubResource("Resource_we2oa"), SubResource("Resource_tb7p8"), SubResource("Resource_sv4hd"), null, null, null, null, null, null, null, null, null, null, null, null])
+SlotDatas = Array[Object]([SubResource("Resource_3vblg"), SubResource("Resource_twvp1"), SubResource("Resource_35ek6"), SubResource("Resource_we2oa"), SubResource("Resource_t47jg"), SubResource("Resource_pigra"), null, null, null, null, null, null, null, null, null, null, null, null])

@@ -5,6 +5,7 @@
 
 [node name="Slot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
+mouse_filter = 1
 script = ExtResource("1_j0klq")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -37,3 +38,4 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 
 [connection signal="gui_input" from="." to="." method="OnGuiInput"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

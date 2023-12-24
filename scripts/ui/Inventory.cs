@@ -24,10 +24,10 @@ public partial class Inventory : PanelContainer {
 			var slot = (Slot) SlotScene.Instantiate();
 			ItemGrid.AddChild(slot);
 
-			//slot.Connect("SlotClicked", this);
+			slot.Connect("SlotClicked", new Callable(inventoryData, "OnSlotClicked"));
 
 			if (slotData != null) {
-				(slot as Slot).SetSlotData(slotData);
+				slot.SetSlotData(slotData);
 			}
 		}
 	}

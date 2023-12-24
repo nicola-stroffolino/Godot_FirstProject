@@ -3,7 +3,7 @@ using System;
 
 public partial class Slot : PanelContainer {
 	[Signal]
-	public delegate void SlotClickedEventHandler(int index, int button);
+	public delegate void SlotClickedEventHandler(int index, int button, bool dragged);
 
 	public TextureRect Display { get; set; }
 	public Label Count { get; set; }
@@ -11,6 +11,14 @@ public partial class Slot : PanelContainer {
 	public override void _Ready() {
 		Display = GetNode<TextureRect>("Background/Display");
 		Count = GetNode<Label>("Count");
+	}
+
+	private void OnGuiInput(InputEvent @event) {
+		if (@event is not InputEventMouseButton mb) return; 
+		
+		if ((mb.ButtonIndex == MouseButton.Left || mb.ButtonIndex == MouseButton.Right) && mb.Pressed) {
+			EmitSignal(SignalName.SlotClicked, GetIndex(), (int) mb.ButtonIndex);
+		}
 	}
 
 	public void SetSlotData(SlotData slotData) {
@@ -22,13 +30,11 @@ public partial class Slot : PanelContainer {
 			Count.Text = "x" + slotData.Quantity;
 		}
 	}
-	
-	private void OnGuiInput(InputEvent @event) {
-		if (@event is not InputEventMouseButton mb) return; 
-		
-		if ((mb.ButtonIndex == MouseButton.Left || mb.ButtonIndex == MouseButton.Right) && mb.Pressed) {
-			EmitSignal(SignalName.SlotClicked, GetIndex(), (int) mb.ButtonIndex);
-		}
+
+	public void UpdateInventorySlotDisplay(int index) {
+		//var slot = Slots[itemIndex];
+		//var item = PlayerInvewntory.Items[itemIndex];
+		//slot.DisplayItem(item);
 	}
 
 	// [Export(PropertyHint.Enum, "Item,Weapon")]
@@ -64,11 +70,11 @@ public partial class Slot : PanelContainer {
 	// 	base._DropData(atPosition, data);
 	// }
 
-	// // Mouse Click Handler "stroffo gay";
+	// // Mouse Click Handler
 	// public void AttachCallback(Node node) {
 	// 	if (node is Control) {
 	// 		var cb = new Callable(node, "Handler");
-			
+
 	// 	}
 	// }
 
@@ -84,12 +90,16 @@ public partial class Slot : PanelContainer {
 	// 		{
 	// 			var i = GetNode<GridContainer>("..").GetChildren().IndexOf(this);
 	// 			var item = PlayerInventory.Items[i];
-				
+
 	// 			var container = (InventoryContainer) GetNode<GridContainer>("../..");
 	// 			container.FloatingItem = item;
 	// 		}
 	// 	}
 	// }
+
 }
+
+
+
 
 
