@@ -99,12 +99,12 @@ public partial class InventoryInterface : Control {
 				GetNode<Inventory>("Layout/Inventory").SetInventoryData(inventoryData);
 				break;
 			case (SlotData, (int) MouseButton.Right):
-				if (inventoryData.SlotDatas[index].Quantity == 99) return;
-
 				if (inventoryData.SlotDatas[index] == null) {
 					var dropped =  (SlotData) GrabbedSlotData.Duplicate();
 					dropped.Quantity = 1;
 					GrabbedSlotData.Quantity--;
+
+					GrabbedSlot.SetSlotData(GrabbedSlotData);
 
 					if (GrabbedSlotData.Quantity <= 0) {
 						GrabbedSlotData = null;
@@ -112,9 +112,12 @@ public partial class InventoryInterface : Control {
 					}
 
 					inventoryData.SlotDatas[index] = dropped;
-				} else if (inventoryData.SlotDatas[index].ItemData == GrabbedSlotData.ItemData) {
+				} else if (inventoryData.SlotDatas[index].ItemData == GrabbedSlotData.ItemData && inventoryData.SlotDatas[index].Quantity < 99) {
+					
 					inventoryData.SlotDatas[index].Quantity++;
 					GrabbedSlotData.Quantity--;
+					
+					GrabbedSlot.SetSlotData(GrabbedSlotData);
 
 					if (GrabbedSlotData.Quantity <= 0) {
 						GrabbedSlotData = null;
@@ -122,7 +125,6 @@ public partial class InventoryInterface : Control {
 					}
 				}
 
-				GrabbedSlot.SetSlotData(GrabbedSlotData);
 				GetNode<Inventory>("Layout/Inventory").SetInventoryData(inventoryData);
 				break;
 			default:

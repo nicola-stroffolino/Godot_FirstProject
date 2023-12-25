@@ -5,6 +5,8 @@ using System;
 [GlobalClass]
 public partial class InventoryData : Resource {
 	[Signal]
+	public delegate void InventorySlotUpdatedEventHandler(int index);
+	[Signal]
 	public delegate void InventoryUpdatedEventHandler(InventoryData inventoryData);
 	[Signal]
 	public delegate void InventoryInteractedEventHandler(InventoryData inventoryData, int index, int button);
@@ -33,7 +35,6 @@ public partial class InventoryData : Resource {
 		
 		return slotData;
 	}
-
 
 	//public ItemData SetItem(int itemIndex, ItemData item) {
 		//var previousItem = Items[itemIndex];
