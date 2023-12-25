@@ -28,6 +28,8 @@ public partial class Slot : PanelContainer {
 
 		if (slotData.Quantity > 1) {
 			Count.Text = "x" + slotData.Quantity;
+		} else {
+			Count.Text = null;
 		}
 	}
 

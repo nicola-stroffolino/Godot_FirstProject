@@ -74,13 +74,19 @@ public partial class InventoryInterface : Control {
 			case (null, (int) MouseButton.Right):
 				if (inventoryData.SlotDatas[index] == null) return;
 
-				var smallQt = inventoryData.SlotDatas[index].Quantity / 2;
-				var bigQt = inventoryData.SlotDatas[index].Quantity / 2 + inventoryData.SlotDatas[index].Quantity % 2;
-
-				inventoryData.SlotDatas[index].Quantity = smallQt;
-
+				var smallQt = 0;
+				var bigQt = 1;
+				if (inventoryData.SlotDatas[index].Quantity > 1) {
+					smallQt = inventoryData.SlotDatas[index].Quantity / 2;
+					bigQt = inventoryData.SlotDatas[index].Quantity / 2 + inventoryData.SlotDatas[index].Quantity % 2;
+				}
+				
 				GrabbedSlotData = (SlotData) inventoryData.SlotDatas[index].Duplicate();
 				GrabbedSlotData.Quantity = bigQt;
+
+				inventoryData.SlotDatas[index].Quantity = smallQt;
+				if (inventoryData.SlotDatas[index].Quantity == 0) inventoryData.SlotDatas[index] = null;
+
 				GetNode<Inventory>("Layout/Inventory").SetInventoryData(inventoryData);
 
 				GrabbedSlot = (Slot) SlotScene.Instantiate();
@@ -93,21 +99,36 @@ public partial class InventoryInterface : Control {
 				GetNode<Inventory>("Layout/Inventory").SetInventoryData(inventoryData);
 				break;
 			case (SlotData, (int) MouseButton.Right):
+				if (inventoryData.SlotDatas[index].Quantity == 99) return;
+
+				if (inventoryData.SlotDatas[index] == null) {
+					var dropped =  (SlotData) GrabbedSlotData.Duplicate();
+					dropped.Quantity = 1;
+					GrabbedSlotData.Quantity--;
+
+					if (GrabbedSlotData.Quantity <= 0) {
+						GrabbedSlotData = null;
+						GrabbedSlot.QueueFree();
+					}
+
+					inventoryData.SlotDatas[index] = dropped;
+				} else if (inventoryData.SlotDatas[index].ItemData == GrabbedSlotData.ItemData) {
+					inventoryData.SlotDatas[index].Quantity++;
+					GrabbedSlotData.Quantity--;
+
+					if (GrabbedSlotData.Quantity <= 0) {
+						GrabbedSlotData = null;
+						GrabbedSlot.QueueFree();
+					}
+				}
+
+				GrabbedSlot.SetSlotData(GrabbedSlotData);
+				GetNode<Inventory>("Layout/Inventory").SetInventoryData(inventoryData);
 				break;
 			default:
 				break;
 		}
 	}
-
-	// override public void _GuiInput(InputEvent @event) {
-	// 	if (@event is not InputEventMouseButton mb) return;
-
-	// 	GD.Print(mb.ButtonIndex);
-
-	// 	if ((mb.ButtonIndex == MouseButton.Left || mb.ButtonIndex == MouseButton.Right) && mb.Pressed) {
-			
-	// 	}
-	// }
 }
 
 
