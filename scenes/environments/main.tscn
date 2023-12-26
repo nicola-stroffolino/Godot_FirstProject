@@ -1,13 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c2kkwf263txv2"]
+[gd_scene load_steps=12 format=3 uid="uid://c2kkwf263txv2"]
 
 [ext_resource type="Script" path="res://scripts/environments/Main.cs" id="1_80mdh"]
 [ext_resource type="PackedScene" uid="uid://c601fohxwa6j1" path="res://scenes/entities/player.tscn" id="2_tsvnn"]
 [ext_resource type="Material" path="res://assets/materials/Alpha_Joints_MAT.material" id="3_ppagt"]
 [ext_resource type="PackedScene" uid="uid://be1hv0dbrmeia" path="res://scenes/entities/test_dummy.tscn" id="4_aptte"]
-[ext_resource type="PackedScene" uid="uid://cuybxv02s1gad" path="res://scenes/weapons/excalibur_morgan.tscn" id="5_5v453"]
-[ext_resource type="PackedScene" uid="uid://b17gpcj5iad70" path="res://scenes/weapons/gae_bolg.tscn" id="6_s782g"]
-[ext_resource type="PackedScene" uid="uid://bu55pidq4u1mh" path="res://scenes/weapons/sword_of_rupture_ea.tscn" id="7_k6j1c"]
-[ext_resource type="PackedScene" uid="uid://b013cnssnuc5q" path="res://scenes/weapons/kanshou_and_bakuya.tscn" id="8_ofcoo"]
 
 [sub_resource type="Sky" id="Sky_5h0ts"]
 
@@ -22,6 +18,14 @@ size = Vector3(120, 2, 120)
 [sub_resource type="BoxMesh" id="2"]
 material = ExtResource("3_ppagt")
 size = Vector3(120, 2, 120)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48fo3"]
+albedo_color = Color(0.776471, 0.156863, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_x6ddp"]
+material = SubResource("StandardMaterial3D_48fo3")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3oomi"]
 
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103508, 0.0793247, 0.147133)
@@ -49,20 +53,19 @@ mesh = SubResource("2")
 
 [node name="Player" parent="." instance=ExtResource("2_tsvnn")]
 collision_mask = 3
+wall_min_slide_angle = 0.610865
 
 [node name="Enemy Test Dummy" parent="." instance=ExtResource("4_aptte")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.530163, 5)
 
-[node name="excalibur_morgan" parent="." instance=ExtResource("5_5v453")]
-transform = Transform3D(-0.00710011, 0.00989964, -0.00453712, -0.0108351, -0.0069646, 0.00175951, -0.00109082, 0.00474252, 0.0120548, 2.13803, 1.8228, 1.16499)
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
+mass = 0.03
 
-[node name="gae_bolg" parent="." instance=ExtResource("6_s782g")]
-transform = Transform3D(-1.18021e-08, 0.27, 0, -0.269972, -1.18008e-08, 0.00390172, 0.00390172, 1.7055e-10, 0.269972, -0.94121, 1, 2.76381)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_x6ddp")
 
-[node name="sword_of_rupture_ea" parent="." instance=ExtResource("7_k6j1c")]
-transform = Transform3D(-5.24537e-09, -0.12, 0, 0.12, -5.24537e-09, 0, 0, 0, 0.12, 3.09964, 1.5, 0.319731)
-
-[node name="kanshou_and_bakuya" parent="." instance=ExtResource("8_ofcoo")]
-transform = Transform3D(0.04, 0, 0, 0, -1.74846e-09, -0.04, 0, 0.04, -1.74846e-09, 3, 1.35285, -0.946834)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_3oomi")
 
 [connection signal="SpreadDamage" from="Player" to="Enemy Test Dummy" method="TakeDamage"]

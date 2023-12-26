@@ -13,12 +13,6 @@ public partial class InputComponent : Node {
 	[Signal]
 	public delegate void JumpStatusEventHandler();
 	[Signal]
-	public delegate void LeftClickEventHandler();
-	[Signal]
-	public delegate void BasicAttackEventHandler();
-	[Signal]
-	public delegate void EquipWeaponEventHandler();
-	[Signal]
 	public delegate void ToggleInventoryEventHandler();
 	
 	public override void _PhysicsProcess(double delta) {
@@ -31,9 +25,6 @@ public partial class InputComponent : Node {
 		EmitSignal(SignalName.StrafeStatus, Direction);
 		EmitSignal(SignalName.SprintStatus, Input.IsActionPressed("sprint"));
 		if (Input.IsActionPressed("jump")) EmitSignal(SignalName.JumpStatus);
-		if (Input.IsActionJustPressed("basic_attack")) EmitSignal(SignalName.BasicAttack);
-		if (Input.IsActionJustPressed("left_click")) EmitSignal(SignalName.LeftClick);
-		// if (Input.IsActionJustPressed("equip_weapon")) EmitSignal(SignalName.EquipWeapon);
 		if (Input.IsActionJustPressed("toggle_inventory")) EmitSignal(SignalName.ToggleInventory);
 	}
 	

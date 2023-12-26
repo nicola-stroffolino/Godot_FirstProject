@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon_ItemData" load_steps=7 format=3 uid="uid://bkivod38naiie"]
 
 [ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_i2glr"]
-[ext_resource type="PackedScene" uid="uid://b013cnssnuc5q" path="res://scenes/weapons/kanshou_and_bakuya.tscn" id="1_tngqm"]
+[ext_resource type="PackedScene" uid="uid://bos2ef4t4arv3" path="res://assets/models/weapons/kanshou_and_bakuya.glb" id="1_ynoo7"]
 [ext_resource type="Texture2D" uid="uid://dxkgl2r7rf4he" path="res://assets/textures/Test Textures.png" id="2_fk0xp"]
 [ext_resource type="Script" path="res://scripts/resources/Weapon_ItemData.cs" id="4_f3y1j"]
 
@@ -19,5 +19,5 @@ script = ExtResource("4_f3y1j")
 WeaponStats = SubResource("Resource_4sumc")
 Name = "Kanshou and Bakuya"
 Texture = SubResource("AtlasTexture_orrei")
-Model = ExtResource("1_tngqm")
+Model = ExtResource("1_ynoo7")
 Stackable = false

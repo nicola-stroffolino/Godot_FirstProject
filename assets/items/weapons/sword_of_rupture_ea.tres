@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon_ItemData" load_steps=7 format=3 uid="uid://bkok6taoybefy"]
 
+[ext_resource type="PackedScene" uid="uid://cpcnl4gl81608" path="res://assets/models/weapons/sword_of_rupture_ea.glb" id="1_78003"]
 [ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_uyy4w"]
-[ext_resource type="PackedScene" uid="uid://bu55pidq4u1mh" path="res://scenes/weapons/sword_of_rupture_ea.tscn" id="1_yidkw"]
 [ext_resource type="Texture2D" uid="uid://dxkgl2r7rf4he" path="res://assets/textures/Test Textures.png" id="2_ishjo"]
 [ext_resource type="Script" path="res://scripts/resources/Weapon_ItemData.cs" id="4_kxka7"]
 
@@ -17,7 +17,7 @@ Range = 1
 [resource]
 script = ExtResource("4_kxka7")
 WeaponStats = SubResource("Resource_50f5t")
-Name = "Sword of Rupture Ea"
+Name = "Sword of Rupture, Ea"
 Texture = SubResource("AtlasTexture_tb6xf")
-Model = ExtResource("1_yidkw")
+Model = ExtResource("1_78003")
 Stackable = false

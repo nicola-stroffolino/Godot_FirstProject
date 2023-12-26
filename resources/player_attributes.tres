@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Attributes" load_steps=2 format=3 uid="uid://b0ke6qkqjnxt3"]
 
-[ext_resource type="Script" path="res://scripts/resources/Attributes.cs" id="1_bkrbj"]
+[ext_resource type="Script" path="res://scripts/resources/StatsData.cs" id="1_bkrbj"]
 
 [resource]
 script = ExtResource("1_bkrbj")

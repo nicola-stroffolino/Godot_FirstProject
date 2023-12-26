@@ -25,6 +25,7 @@ public partial class CameraComponent : Node {
 		VCamRotation -= motion.Relative.Y * VSensitivity;
 		VCamRotation = Mathf.Clamp(VCamRotation, VCam_Min, VCam_Max);
 		GetNode<Node3D>("Horizontal").RotationDegrees = new Vector3 {
+			X = GetNode<Node3D>("Horizontal").RotationDegrees.X,
 			Y = HCamRotation + 180 // 180 to flip the character
 		};
 		GetNode<Node3D>("Horizontal/Vertical").RotationDegrees = new Vector3 {

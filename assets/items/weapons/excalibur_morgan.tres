@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Weapon_ItemData" load_steps=7 format=3 uid="uid://dr7ledwepetb8"]
 
-[ext_resource type="PackedScene" uid="uid://cuybxv02s1gad" path="res://scenes/weapons/excalibur_morgan.tscn" id="1_dqae2"]
+[ext_resource type="PackedScene" uid="uid://d1uhw4arvsw4p" path="res://assets/models/weapons/excalibur_morgan.glb" id="1_y40ms"]
 [ext_resource type="Texture2D" uid="uid://dxkgl2r7rf4he" path="res://assets/textures/Test Textures.png" id="2_0g2qp"]
 [ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="2_586m1"]
 [ext_resource type="Script" path="res://scripts/resources/Weapon_ItemData.cs" id="4_jla0n"]
@@ -19,5 +19,5 @@ script = ExtResource("4_jla0n")
 WeaponStats = SubResource("Resource_46cfd")
 Name = "Excalibur Morgan"
 Texture = SubResource("AtlasTexture_qccmw")
-Model = ExtResource("1_dqae2")
+Model = ExtResource("1_y40ms")
 Stackable = false

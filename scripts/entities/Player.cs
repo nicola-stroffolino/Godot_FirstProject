@@ -9,14 +9,16 @@ public partial class Player : CharacterBody3D {
 	public delegate void InventoryDataReadyEventHandler(InventoryData inventoryData);
 	[Signal]
 	public delegate void WeaponInventoryDataReadyEventHandler(Weapon_InventoryData inventoryData);
-	
+
+	[ExportGroup("PlayerData")]
 	[Export]
-	public Attributes _Attributes { get; set; }
+	public StatsData _Attributes { get; set; }
 	[Export]
 	public InventoryData _InventoryData { get; set; }
 	[Export]
 	public Weapon_InventoryData _WeaponInventoryData { get; set; }
-	
+
+	[ExportGroup("Scene Nodes")]	
 	[Export]
 	public RayCast3D Pointer { get; set; }
 	[Export]
@@ -24,7 +26,8 @@ public partial class Player : CharacterBody3D {
 
 	public Array<Marker3D> AnchorsArray { get; set; } = new();
 	public Dictionary<string, Marker3D> AnchorDictionary { get; set; } = new();
-
+	public AnimationTree _AnimationTree { get; set; }
+	
 	public override void _Ready() {
 		foreach (var anchor in AnchorsPathArray) {
 			AnchorsArray.Add(GetNode<Marker3D>(anchor));
@@ -36,6 +39,9 @@ public partial class Player : CharacterBody3D {
 
 		EmitSignal(SignalName.InventoryDataReady, _InventoryData);
 		EmitSignal(SignalName.WeaponInventoryDataReady, _WeaponInventoryData);
+		_WeaponInventoryData.Connect("InventoryUpdated", new Callable(this, "EquipWeapon"));
+
+		_AnimationTree = GetNode<AnimationTree>("AnimationTree");
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -47,10 +53,57 @@ public partial class Player : CharacterBody3D {
 		};
 	}
 
-	public void PushWeapon(Weapon weapon) {
-		//WeaponLoadout.Add(weapon);	
+	public void EquipWeapon(InventoryData inventoryData) {
+		if (inventoryData is not Weapon_InventoryData wInv) return;
+		
+		if (wInv.SlotDatas[0] is not null) {
+			if (wInv.SlotDatas[0].ItemData is Weapon_ItemData w) {
+				// Animation
+				_AnimationTree.Set("parameters/Sword Blend/blend_amount", 1);
+				switch (w.Name) {
+				case "Excalibur Morgan":
+					// Animation
+					ClearWeaponHold();
+					_AnimationTree.Set("parameters/Transition/transition_request", "sword");
+					AnchorDictionary["em_position"].AddChild(InstanceWeapon(w.Model));
+					break;
+				case "Gae Bolg":
+					// Animation
+					ClearWeaponHold();
+					_AnimationTree.Set("parameters/Transition/transition_request", "lance");
+					AnchorDictionary["gb_position"].AddChild(InstanceWeapon(w.Model));
+					break;
+				case "Sword of Rupture, Ea":
+					AnchorDictionary["ea_position"].AddChild(InstanceWeapon(w.Model));
+					break;
+				default:
+					break;
+				}
+			}
+		} else {
+			// Animation
+			_AnimationTree.Set("parameters/Transition/transition_request", "idle");
+			// _AnimationTree.Set("parameters/Sword Blend/blend_amount", 0);
+			ClearWeaponHold();
+		}
 	}
-	
+
+	public void ClearWeaponHold(){
+		foreach (var item in AnchorDictionary) {
+			if (item.Value.GetChildren().Count == 0) continue;
+
+			foreach (var child in item.Value.GetChildren()) item.Value.RemoveChild(child);
+		}
+	}
+
+	public Node3D InstanceWeapon(PackedScene weapon) {
+		var new_w = (Node3D) weapon.Instantiate().Duplicate();
+		new_w.Position = Vector3.Zero;
+		new_w.Rotation = Vector3.Zero;
+		new_w.Scale = new Vector3(1, 1, 1);
+		return new_w;
+	}
+
 	public void Attack(double damage) {
 		EmitSignal(SignalName.SpreadDamage, damage);
 	}
@@ -71,5 +124,7 @@ public partial class Player : CharacterBody3D {
 				break;
 		}
 	}
+
+
 }
 

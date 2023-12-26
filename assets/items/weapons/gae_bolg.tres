@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon_ItemData" load_steps=7 format=3 uid="uid://dpws5d2jgan7f"]
 
 [ext_resource type="Script" path="res://scripts/resources/WeaponStats.cs" id="1_2ephd"]
-[ext_resource type="PackedScene" uid="uid://b17gpcj5iad70" path="res://scenes/weapons/gae_bolg.tscn" id="1_v1frl"]
+[ext_resource type="PackedScene" uid="uid://b1o5lxaw7evdy" path="res://assets/models/weapons/gae_bolg.glb" id="1_3uqdu"]
 [ext_resource type="Texture2D" uid="uid://dxkgl2r7rf4he" path="res://assets/textures/Test Textures.png" id="2_y4oa8"]
 [ext_resource type="Script" path="res://scripts/resources/Weapon_ItemData.cs" id="4_eenfr"]
 
@@ -19,5 +19,5 @@ script = ExtResource("4_eenfr")
 WeaponStats = SubResource("Resource_suefs")
 Name = "Gae Bolg"
 Texture = SubResource("AtlasTexture_krwy5")
-Model = ExtResource("1_v1frl")
+Model = ExtResource("1_3uqdu")
 Stackable = false
