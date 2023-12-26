@@ -7,14 +7,18 @@ public partial class Player : CharacterBody3D {
 	public delegate void SpreadDamageEventHandler(double amount);
 	[Signal]
 	public delegate void InventoryDataReadyEventHandler(InventoryData inventoryData);
+	[Signal]
+	public delegate void WeaponInventoryDataReadyEventHandler(Weapon_InventoryData inventoryData);
 	
 	[Export]
 	public Attributes _Attributes { get; set; }
 	[Export]
 	public InventoryData _InventoryData { get; set; }
+	[Export]
+	public Weapon_InventoryData _WeaponInventoryData { get; set; }
 	
 	[Export]
-public RayCast3D Pointer { get; set; }
+	public RayCast3D Pointer { get; set; }
 	[Export]
 	public Array<NodePath> AnchorsPathArray { get; set; }
 
@@ -30,8 +34,8 @@ public RayCast3D Pointer { get; set; }
 			AnchorDictionary.Add(anchor.Name, anchor);
 		}
 
-		// if (InventoryData != null) 
 		EmitSignal(SignalName.InventoryDataReady, _InventoryData);
+		EmitSignal(SignalName.WeaponInventoryDataReady, _WeaponInventoryData);
 	}
 
 	public override void _PhysicsProcess(double delta) {

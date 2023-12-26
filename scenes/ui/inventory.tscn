@@ -16,62 +16,78 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="ItemGrid" type="GridContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="WeaponGrid" type="GridContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="Slot" parent="MarginContainer/HBoxContainer/WeaponGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="Slot2" parent="MarginContainer/HBoxContainer/WeaponGrid" instance=ExtResource("2_lv60i")]
+layout_mode = 2
+
+[node name="ItemGrid" type="GridContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 6
 
-[node name="Slot" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot2" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot2" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot3" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot3" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot4" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot4" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot5" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot5" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot6" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot6" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot7" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot7" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot8" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot8" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot9" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot9" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot10" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot10" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot11" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot11" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot12" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot12" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot13" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot13" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot14" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot14" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot15" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot15" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot16" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot16" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot17" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot17" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2
 
-[node name="Slot18" parent="MarginContainer/ItemGrid" instance=ExtResource("2_lv60i")]
+[node name="Slot18" parent="MarginContainer/HBoxContainer/ItemGrid" instance=ExtResource("2_lv60i")]
 layout_mode = 2

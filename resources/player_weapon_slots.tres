@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Weapon_InventoryData" load_steps=2 format=3 uid="uid://dalymxg41n2lq"]
+
+[ext_resource type="Script" path="res://scripts/resources/Weapon_InventoryData.cs" id="1_w6550"]
+
+[resource]
+script = ExtResource("1_w6550")
+SlotDatas = Array[Object]([null, null])

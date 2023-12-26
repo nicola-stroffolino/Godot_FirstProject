@@ -5,8 +5,6 @@ using System;
 [GlobalClass]
 public partial class InventoryData : Resource {
 	[Signal]
-	public delegate void InventorySlotUpdatedEventHandler(int index);
-	[Signal]
 	public delegate void InventoryUpdatedEventHandler(InventoryData inventoryData);
 	[Signal]
 	public delegate void InventoryInteractedEventHandler(InventoryData inventoryData, int index, int button);
@@ -19,38 +17,43 @@ public partial class InventoryData : Resource {
 	}
 
 	public SlotData GrabSlotData(int index) {
-		var slotData = SlotDatas[index];
+		var grabTargetSlotData = SlotDatas[index];
 		
-		if (slotData != null) {
+		if (grabTargetSlotData != null) {
 			SlotDatas[index] = null;
 			EmitSignal(SignalName.InventoryUpdated, this);
 		}
 
-		return slotData;
+		return grabTargetSlotData;
 	}
 
-	public SlotData DropSlotData(SlotData grabbedSlotData, int index) {
-		var slotData = SlotDatas[index];
-		SlotDatas[index] = grabbedSlotData;
+	public virtual SlotData DropSlotData(SlotData grabbedSlotData, int index) {
+		var targetSlotData = SlotDatas[index];
+
+		SlotData returnSlotData = null;
+		if (targetSlotData is not null && targetSlotData.CanFullyMergeWith(grabbedSlotData)) {
+			targetSlotData.FullyMergeWith(grabbedSlotData);
+		} else if (targetSlotData is not null && targetSlotData.CanMergeWith(grabbedSlotData)) {
+			returnSlotData = targetSlotData.PartialMergeWith(grabbedSlotData);
+		} else {
+			SlotDatas[index] = grabbedSlotData;
+			returnSlotData = targetSlotData;
+		}
+
+		EmitSignal(SignalName.InventoryUpdated, this);
 		
-		return slotData;
+		return returnSlotData; // either null or SlotData
 	}
 
-	//public ItemData SetItem(int itemIndex, ItemData item) {
-		//var previousItem = Items[itemIndex];
-		//Items[itemIndex] = item;
-		//return previousItem;
-	//}
-//
-	//public ItemData RemoveItem(int itemIndex) {
-		//var previousItem = Items[itemIndex];
-		//Items[itemIndex] = null;
-		//return previousItem;
-	//}
-//
-	//public void SwapItems(int fromItemIndex, int toItemIndex) {
-		//(Items[toItemIndex], Items[fromItemIndex]) = (Items[fromItemIndex], Items[toItemIndex]);
-	//}
+	public virtual SlotData DropSingleSlotData(SlotData grabbedSlotData, int index) {
+		var targetSlotData = SlotDatas[index];
 
+		if (targetSlotData is null) SlotDatas[index] = grabbedSlotData.DetachSingleSlotData();
+		else if (targetSlotData.CanMergeWith(grabbedSlotData)) targetSlotData.FullyMergeWith(grabbedSlotData.DetachSingleSlotData());
 
+		EmitSignal(SignalName.InventoryUpdated, this);
+
+		if (grabbedSlotData.Quantity > 0) return grabbedSlotData;
+		else return null;
+	}
 }
